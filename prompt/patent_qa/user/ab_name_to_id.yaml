@@ -1,0 +1,17 @@
+_type: "prompt"
+template: |
+  Read the context and answer the question. 
+
+  # Question:
+  What is the SEQ ID NO of {component} ({key}) of antibody {name}?
+
+  # Output Format:
+  Report in **JSON FORMAT** with following keys:
+  - `name`: {name}
+  - `seq_id_no`: heavy chain SEQ ID NO
+
+  # Context:
+  {context}
+
+  # Answer:
+input_variables: ['name', 'context', 'component', 'key']

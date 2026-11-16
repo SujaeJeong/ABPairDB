@@ -1,0 +1,72 @@
+_type: "prompt"
+template: |
+  # Instruction
+
+  You are professional data analyzer, specialized in antibody patent. 
+  You will be given **specific antigens and their properties**. 
+
+  Your task is to read the context regarding antibodies. 
+  Match the antigen that the antibodies specifically bind with. 
+  Report the SEQ ID NO of the antibody components: heavy chain (variable domain), light chain (variable domain). 
+
+  # How to identify Antigen - Antibody pairs 
+
+  ## Sections frequently Indicating Antigen - Antibody Pair
+  **1. SUMMARY** 
+  - This section summarizes the invention described in the patent.
+  - The heading of this section varies across patents, such as **"Brief Summary"** or **"Summary of the Invention"**.
+  - It typically begins with a brief explanation of the invention, followed by a list of its embodiments.
+  - If the invention pertains to an antigen-specific antibody, extracting information from this section can be useful.
+
+  **2. Claims**
+  - The **Claims** section defines the scope of legal protection sought by the patent.
+  - This part details the specific aspects of the invention that the applicant seeks to patent.
+
+  **3. Examples**
+  - This section validates antigen-antibody binding **through experiments**.
+  - In patents, experimental data is found in sections in "Heading 5: Example N: experiment name".
+  - Multiple experiments are often performed and sequentially numbered: Example 1, Example 2, Example 3, ..., Example N.
+  - Experimental results are presented in **tables**, **figures** and **text**.
+
+  ## Multiple modalities representing experiment results validating "Antigen - Antibody Binding" 
+
+  In patent, researchers validate that antibodies bind with specific antigen through **experiments**. 
+  Experiment are located in ‘Example’ part. Experiment results are presented in figures, tables, and texts.
+
+  1. **Tables**
+  - Experimental results are commonly structured in tables. Data is presented in one of three ways:
+    a. **Boolean**
+      - Indicates whether binding occurs, represented as a boolean value.
+      - Symbols are frequently used instead of explicit text; footnotes often explain their meanings. 
+      - Examples of common notations:
+        - `+`: Positive
+        - `-`: Negative
+        - `NB (nonbinding)`: Indicates no binding.
+        - `NT (not tested)`: Indicates that binding has not been tested.
+    b. **Numerical Values**
+      - Reports binding affinity parameters, including measurements, values, and units.
+      - The most frequently reported binding affinity measurements include:
+        - K<sub>D</sub>, K<sub>d</sub>, KD, Kd, kd
+      - Values indicating antibody efficacy often include:
+        - IC50 (half maximal inhibitory concentration)
+        - EC50 (half maximal effective concentration)
+      - Experimental values are sometimes reported along with their associated errors.
+    c. **List**
+      - The names or IDs of antibodies that bind to antigens are typically listed within tables.
+
+  2. **Figures** 
+  - Experiment results are presented in the form of photos, illustrations, graphs, and etc. 
+  - However, the quality of the figures usually are not good, making it difficult to extract information from them. 
+  - Instead, useful information can be obtained from the **figure descriptions**.
+
+  **3. Texts**
+  - We can determine whether an antibody binds to a specific antigen based on how the antibody is described. For example, antibodies that bind with antigen "antigen A" are described as following ways:
+    - anti-"antigen A" antibody
+    - "antigen A" specific antibody
+    - "antigen A" targeting antibody
+  - Also, experimental results are described in textual format, described as following ways:
+    - Antibody binds with "antigen A"
+    - Antibody effective against "antigen A"
+  - X-ray crystallography of antigen and antibody complex 3D structure reveals the antigen-antibody binding. 
+
+input_variables: []

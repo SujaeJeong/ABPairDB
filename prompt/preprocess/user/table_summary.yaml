@@ -1,0 +1,27 @@
+_type: "prompt"
+template: |
+  In this step, you will read HTML table, texts related to HTML table and summarize structure of the HTML table. 
+
+  ---
+  # Examples
+  Here are some examples of the summary task:
+  {examples}
+
+  ---
+  # Task
+  Let's begin our task. The input HTML is as follows:
+
+  ## Previous sentences:
+  {prev_sentences}
+
+  ## Sentences referring the table:
+  {table_mentioned_sentences}
+
+  {hint}
+  ## Input HTML table : 
+  ```
+  {input}
+  ```
+  ## Answer:
+  The summary of the table is, 
+input_variables: ['index', 'examples', 'hint', 'input', 'prev_sentences', 'table_mentioned_sentences']

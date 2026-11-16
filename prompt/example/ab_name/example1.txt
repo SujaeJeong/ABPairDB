@@ -1,0 +1,40 @@
+## Example 1
+
+### Context:
+```
+Chunk info:
+
+Headings:
+  Heading 3: Background/Summary
+  Heading 4: Figure Description
+  Heading 5:
+
+Page content:
+  SEQ ID NO. 11 represents the variable heavy chain sequence of e27 indicated in FIG. 2.
+  SEQ ID NO. 12 represents the variable heavy chain sequence of e25, e26 and e426 indicated in FIG. 2.
+```
+
+### SEQ ID NO list
+[11, 12]
+
+### Answer
+SEQ ID NO. 11 represents the variable heavy chain sequence of e27. 
+Thus, the antibody name is "e27".
+
+SEQ ID NO. 12 represents the variable heavy chain sequence of e25, e26, e426. 
+Thus, the antibody names are "e25", "e26", and "e426". 
+
+```json
+[
+  {{
+    "seq_id_no": 11,
+    "name": "e27",
+    "exclusion": false
+  }},
+  {{
+    "seq_id_no": 12,
+    "name": "e25; e26; e426",
+    "exclusion": false
+  }}
+]
+```

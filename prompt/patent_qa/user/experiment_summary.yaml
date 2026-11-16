@@ -1,0 +1,38 @@
+_type: "prompt"
+template: |
+  # STEP 1 – Provide experiment summary and antibody format
+
+  ## Instruction
+  1. Read the context and write **one concise sentence** summarizing the key experimental conditions (assay type, cell line / expression system, ligand, detection / capture method, etc.).
+  2. Infer the **structural antibody format** used in this experiment.
+
+  ## Structural Antibody format
+  Answer structural antibody format among: "IgG", "Fab", "scFv", "Diabody", "Nanobody", "Bispecific Antibody", "null".
+
+  ⚠️ Ignore origin / discovery descriptors
+    • Words such as “monoclonal”, “humanized”, “fully human”, “mouse”, “chimeric” describe sequence origin or engineering strategy, **not** structural format.  
+    • Do **not** use those words alone to assign `antibody_format`.
+
+  ✅ Base the format on structural evidence
+    • Select a format only when the text gives architectural cues: presence or absence of Fc, fragment size, domain names (Fab, scFv, VHH), capture method (Protein A vs. His-tag), or explicit “bispecific IgG”, “tandem scFv” wording.  
+    • If no such structural clue is present, set `antibody_format` to `null`.
+
+  ## Output Format
+  Return exactly one JSON object, wrapped in triple back-ticks: 
+  
+  ```json
+  {{
+  "experiment_summary": "<one sentence>",
+  "antibody_format": "<IgG | Fab | scFv | Diabody | Nanobody | Bispecific Antibody | null>"
+  }}
+  ```
+
+  ---
+  # Task
+  Let's start to summarize following experiment and think what antibody format used. 
+
+  ## Context
+  {context}
+
+  ## Answer
+input_variables: ['context']

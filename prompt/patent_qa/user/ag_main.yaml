@@ -1,0 +1,27 @@
+_type: "prompt"
+template: |
+  # Instruction
+  - In previous steps, we found antigen candidates. 
+  - **Task**: Read the context again and find the main antigens among the antigen candidates. 
+    Read the abstract, summary, and claim part of the patent again. 
+    Among the antigen candidates, report all antigens that antibody developed in patents targeting.  
+
+  ## Output Format: 
+  Report result in **JSON format** with following keys: 'name', 'organism', 'seq_id_no'
+    - `name`: The name of the antigen. Use the identical "name" mentioned in "Antigen Candidates"
+    - `organism`: The species of organism to which the antigen belongs. Use the name we found in previous step. 
+    - `seq_id_no`: The given SEQ ID NO of the antigen. If there is no SEQ ID NO, report null. 
+    - `abbreviation`: The abbreviation of the antigen name. Use the identical "abbreviation" mentioned in "Antigen Candidates"
+
+  ---
+  # Task
+  Let's begin to find main antigens from the context. 
+
+  ## Antigen Candidates:
+  {ag_detail}
+
+  ## Context:
+  {context}
+
+  ## Answer:
+input_variables: ['num_ag', 'ag_detail', 'context']

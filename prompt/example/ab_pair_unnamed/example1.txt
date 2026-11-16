@@ -1,0 +1,39 @@
+## Example 1
+
+### Context:
+```
+<chunk data-index=30>
+<metadata>
+<h3>Summary/Background</h3><h4>Brief Summary of the Invention</h4><h5></h5>
+<SEQ_ID_NO>[25, 31, 50, 51]</SEQ_ID_NO>
+</metadata>
+<page_content>
+In one embodiment, the antibody, or antigen binding fragment thereof, comprises a heavy chain variable region comprising an amino acid sequence of SEQ ID NO:25 and a light chain variable region comprising an amino acid sequence of SEQ ID NO:31.
+In one embodiment, the antibody, or antigen binding fragment thereof, comprises a heavy chain comprising an amino acid sequence of SEQ ID NO:50. In one embodiment, the antibody, or antigen binding fragment thereof, comprises a light chain comprising an amino acid sequence of SEQ ID NO:51.
+</page_content>
+</chunk>
+```
+
+### SEQ ID NO list:
+[25, 30, 35, 40, 45, 50]
+
+### Answer:
+This chunk enumerates patent embodiemnts, the antibodies. 
+
+We need to find light chain variable regions (VL) that are paired with heavy chain variable regions (VH) corresponding to SEQ ID NOs: 25, 30, 35, 40, 45, and 50.
+
+Within this chunk, heavy chain variable regions with SEQ ID NOs 25 and 50 are found.
+The heavy chain variable region with SEQ ID NO 25, together with the light chain variable region with SEQ ID NO 31, forms an antibody or antigen binding fragment. 
+However, although the heavy chain variable region with SEQ ID NO 50 corresponds to a component of the antibody, there is no mention of which light chain (variable domain) it pairs with. 
+Furthermore, there is no clear evidence that it forms an antibody together with SEQ ID NO: 51 in the immediately following sentence. 
+
+Therefore, only the SEQ ID NO: 25 heavy chain variable domain and the SEQ ID NO: 31 light chain variable domain form the antibody pair in the above chunk.
+
+```json
+[
+    {{
+      "heavy_seq_id_no": 25,
+      "light_seq_id_no": 31
+    }}
+]
+```

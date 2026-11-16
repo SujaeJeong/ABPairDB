@@ -1,0 +1,8 @@
+_type: "prompt"
+template: |
+  - `strain`: A genetic variant or a subtype of a microorganism (e.g., a virus, bacterium, or fungus). 
+  - `subtype`: A subtype of the antigen.
+  
+  In the case of bacteria or viruses, surface proteins are the main targets of drugs or antibodies. 
+  Additionally, surface proteins are vary depending on the strain, which allows strains within a single organism to be distinguished. 
+input_variables: []

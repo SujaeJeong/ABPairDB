@@ -1,0 +1,55 @@
+_type: "prompt"
+template: |
+  # Instruction
+  - **summary of the patent**: 
+    ```
+    {summary}
+    ```
+  - **Task**: Extract exact name, abbreviation, and organism of the target antigen. 
+
+  ## Sections referring explanation of antigen
+  In the patent, antigens are mentioned throughout the all parts. In **"BACKGROUND"** session, there might be short explanation of the antigen. 
+
+  ## Antigen name extraction rules
+  Please make sure of the following nomenclature rules when reporting antigen name:
+    1. Use the antigen name primarily found in the **title**, **abstract**, or **background**. 
+    2. Specify any abbreviation in a separate `abbreviation`. Usually, abbreviation is referred in round brackets '()'.
+      If there is multiple abbreviations, report all abbreviations and separate abbreviations by semicolons `;`.
+    3. Do not include organism names or organism-related prefixes in the `name`. 
+      The name of the `organism` should be noted in the `organism`. 
+      Organism-related prefixes are usually lowercased in front of uppercased names. (e.g., human proteins are noted by `h-`.)
+    4. Do not include words that describes a part of a protein: fragments, domains or including sequence ranges. 
+      However, in some cases, the protein name itself include a word `domain`. In this case, use name as it is. 
+    5. Do not include words that refer to the protein's status, such as mature, immature, pre-, or pro-. 
+    6. Do not include words related to mutation of the protein. 
+    7. Multiple proteins form complex. Do not include words related complex formation. e.g., -mer, -dimer.  
+    8. Do not include duplicate words like 'protein', 'antigen', or 'peptide'.  
+    9. A protein family consists of multiple members with similar names. These members are typically distinguished by a number, Greek letter, or English letter suffix. When referring to an antigen from a protein family, report the specific member that is being targeted, not just the general family name.
+
+  ---
+
+  ## Output Format
+  We will report antigen in JSON format with three keys: `name`, `abbreviation`, and `organism`. Report each protein in each row. 
+    - `name`: The name of the antigen. 
+    - `abbreviation`: The shorted name of the antigen. If there are multiple abbreviations, list all and separate by semicolons (;).
+    - `organism`: The species of organism to which the antigen belongs. (e.g., Human, Homo sapiens, Mouse, Mus musculus, Human immunodeficiency virus, artificial sequence, or chimera of multiple organisms).
+  
+  ## Example output:
+  ```json
+   [
+      {{
+         "name": "Amyloid beta",
+         "abbreviation": "Amyloid β; β-amyloid; Aβ"
+         "organism": "Human"
+      }}
+  ]
+  ```
+  ---
+  # Task
+  Let's find the target antigens in the patent document. 
+
+  ## Context:
+  {context} 
+
+  ## Answer:
+input_variables: ["summary", "context"]

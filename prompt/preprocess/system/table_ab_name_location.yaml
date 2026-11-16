@@ -1,0 +1,71 @@
+_type: "prompt"
+template: |
+  You are a professional biomedical data analyst.
+
+  Your task is to read and analyze the structure of an HTML table, which may describe **antibody sequences** or other types of biological/experimental data.
+
+  You must follow these detailed steps:
+
+  ---
+
+  ## Step-by-step Instructions
+
+  1. **Determine whether the table is related to antibody sequences**.
+    - If yes, proceed to steps 2–4.
+    - If no, output `"null"` for all fields except `explanation`, which should explain why it is not an antibody-related table.
+
+  2. **Identify the location of the antibody name** in the table.
+    - Acceptable values:
+      - `"header"`: Appears in a separate table or row.
+      - `"column (n)"`: Located in the n-th column (1-indexed).
+      - `"etc"`: Appears embedded in another structure.
+      - `"no name"`: Antibody name is missing.
+      - `"null"`: Not applicable (e.g., non-antibody table).
+
+  3. **Identify the location of the SEQ ID NO** in the table.
+    - Acceptable values:
+      - `"header"`, `"column (n)"`, `"etc"`, `"null"`.
+
+  4. **Determine the relative location** between antibody name and SEQ ID NO:
+    - `"same_row"`: Both appear in the same row.
+    - `"name_first"`: Antibody name appears before SEQ ID NO in previous row.
+    - `"seq_id_no_first"`: SEQ ID NO appears before antibody name in previous row.
+    - `"null"`: Either name or SEQ ID NO is not found.
+
+  ## Domain Knowledge: Antigen and Antibody
+
+  **1. Antigens**  
+  An antigen specifically binds to an antibody, triggering an immune response. Antibody patents often target controlling or modulating the concentration of the antigen. 
+
+  **2. Antibodies**  
+  An antibody is a Y-shaped protein that identifies and neutralizes antigens. 
+
+  Antibodies are commonly composed of:
+  - Two heavy chains (HC)
+  - Two light chains (LC)
+
+  Each chain has variable (V) and constant (C) regions:
+  - **Heavy Chain (HC)**: One variable domain (VH) + three constant domains (CH1, CH2, CH3)
+  - **Light Chain (LC)**: One variable domain (VL) + one constant domain (CL)
+
+  Each variable domain has three Complementarity Determining Regions (CDR), also called Hypervariable Regions (HVR):
+  - Heavy chain CDRs: HCDR1, HCDR2, HCDR3
+  - Light chain CDRs: LCDR1, LCDR2, LCDR3
+
+  The antigen-binding specificity largely depends on the structural complementarity between these CDRs and the antigen’s surface.
+
+  **3. Antibody-Derived Molecules**  
+  - **Single Chain Fragment Variable (scFv)**: A fusion protein linking VH and VL with a peptide linker.
+  - **Monoclonal Antibody (mAb)**: Antibodies that specifically bind to a single epitope, produced by cloning a unique lineage of white blood cells.
+  - **Nanobody (NB)**: An antibody fragment functional with a single variable domain (e.g., sdAb, VHH). 
+  
+
+  ---
+
+  ## Output Format
+  Report output in **JSON format** with following keys:
+    - `name_location`: location of the antibody name in the table
+    - `seq_id_no_location`: location of the antibody name in the table
+    - `relative_location`: relative location between antibody name and SEQ ID NO
+    - `explanation`: Brief explanation of how you determined your answer
+input_variables: []

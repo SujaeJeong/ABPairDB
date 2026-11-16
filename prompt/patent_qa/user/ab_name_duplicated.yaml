@@ -1,0 +1,69 @@
+_type: "prompt"
+template: |
+  # Instruction
+  In the previous step, we identified the names of antibodies corresponding to a given SEQ ID NO list.
+  However, some antibodies have identical names where: 
+    Case 1: GPT incorrectly reported some names of the antibodies. 
+    Case 2: Single antibody name can refer to multiple versions, with different on the **organism**, **antibody fragment**, **isotype** and **tag**.
+
+  In this step, you will be given:
+  - An antibody name
+  - A list of SEQ ID NOs corresponds to the name
+  - The corresponding context
+
+  Your task is to correct the antibody name and to extract the following details for each antibody based **only on the provided context**:
+  - `name`: the corrected name of the antibody
+  - `organism`: the species from which the antibody originates
+  - `fragment`: the structural form of the antibody (e.g., {ab_key}, full-length, Fab, Fv)
+  - `isotype`: the immunoglobulin isotype (e.g., IgG, IgM, etc.)
+  - `tag`: the tag attached to the antibody
+
+  If context does not contain information about antibody organism, fragment, isotype, tag, report `null`.
+
+  ---
+  ## Definitions
+  ### Antibody Fragment
+  Antibodies may appear in full-length form or as engineered fragments for specific applications. Such as:
+    - **Fv**: Fragment of variable region. Composed of VH and VL domains.
+    - **Fab**: Fragment of antigen-binding region. Composed of VH + CH1 + VL + CL.
+    - **Full-length**: A complete antibody with both variable and constant regions. Composed of heavy chain (HC) and light chain (LC).
+  Report antibody fragment except for {ab_component}, {ab_key}. 
+
+  ### Antibody isotype
+  Isotypes refer to antibody classes that differ in constant regions and immune functions.
+  The main types are IgG, IgA, IgM, IgD, and IgE.
+
+  ### Tag
+  Protein tags are short peptide sequences genetically fused to recombinant proteins for various purposes:
+    - Purification – Enable easy isolation (e.g., His-tag, GST).
+    - Solubility – Improve folding and expression in hosts like E. coli.
+    - Detection – Allow visualization or antibody-based detection (e.g., FLAG, GFP).
+    - Modification – Facilitate chemical or enzymatic changes, though may affect protein function.
+
+  ---
+  ## Output format
+  Report output in **JSON format** with 5 keys:
+    - `seq_id_no`: SEQ ID NO for the antibody sequence
+    - `name`: name of the antibody sequence. 
+    - `organism`: Species from which the antibody originates
+    - `fragment`: The antibody fragment form
+    - `isotype`: The immunoglobulin isotype
+    - `tag`: The tags attached to the sequence
+
+  ---
+  # Task
+
+  ## Antibody name
+  {ab_name}
+
+  ## SEQ ID NO list
+  {idx_list}
+
+  ## context
+  {context}
+input_variables:
+  - ab_key
+  - ab_component
+  - ab_name
+  - idx_list
+  - context

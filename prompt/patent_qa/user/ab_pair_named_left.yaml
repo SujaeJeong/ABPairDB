@@ -1,0 +1,47 @@
+_type: "prompt"
+template: |
+  Read the context and fill out antibody counterpart. 
+
+  # Instructions
+  Antibodies are composed of heavy chain and light chain. 
+  You will be given name and SEQ ID NO of one part of the antibody. 
+  Your task is to find the counterpart of the antibody that pair with given antibody.  
+  And fill out the name and SEQ ID NO of the other part of the antibody. 
+  Write reference for each antibody pair. 
+
+  ## Rules
+  1. Report answer based on the given `context`. 
+    If antibody name is not mentioned in context, report it as `null`.
+  2. Extract proper names. Exclude common names related antibody or antibody components. 
+      - e.g. heavy chain (variable domain), light chain (variable domain), VH, VL, HC, LC. 
+  3. Do not report any modifiers or descriptive expressions. 
+      - e.g. 'anti-{ag_name}' is not antibody name. It is descriptive expressions. 
+  4. Ensure to match name and SEQ ID NO correctly when multiple antibodies mentioned in a chunk. 
+  5. To maintain a neat appearance, table rows are split, regardless of their semantic structure. 
+    As a result, columns or cells might span multiple lines, making it difficult to interpret their meaning. 
+    Table cells are aligned to fill from the top to bottom. 
+    Therefore, when most cells in a row are not empty, the cells are semantically distinct. 
+    This should be taken into account when analyzing the content of a table.
+
+  ## Output Format
+  Report in **JSON format** with following keys: ['reference', 'heavy_chain', 'light_chain']. Place each dictionary into a list.
+  - `reference`: The value(s) of the "data-index" attribute found in the <chunk> tag in the context. If there are multiple references, list them separated by a semicolon (;).
+  - `heavy_chain`: antibody heavy chain part. 
+    - `name`: name of the antibody heavy chain. If there are multiple names, list all and separate by a semicolon `;`.
+    - `seq_id_no`: SEQ ID NO of the heavy chain. 
+  - `light_chain`: antibody light chain part. 
+    - `name`: name of the antibody light chain. If there are multiple names, list all and separate by a semicolon `;`.
+    - `seq_id_no`: SEQ ID NO of the light chain. 
+  ---
+
+  # Antibody Pair
+  {pair_dict}
+
+  # Context:
+  {context}
+
+  # Answer:
+input_variables:
+  - ag_name
+  - pair_dict
+  - context

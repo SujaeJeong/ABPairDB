@@ -1,0 +1,83 @@
+_type: "prompt"
+template: |
+  # Instruction
+  - You will be given **Antigens**, **SEQ ID NO list** and **context**. 
+    1. Antigens:
+      - Antigens we extracted in the previous step. The antigen that patent targeting. 
+    2. SEQ ID NO list:
+      - SEQ ID NO list corresponds to proteins that does not contain any antibody variable domains. 
+      - The SEQ ID NO in the list might corresponds to the provided antigens, or it is irrelavant to the provided antigen. 
+    3. Context:
+      - Reconstructured chunks regarding antigen, SEQ ID NO in the list.  
+  - **Role**: Read the context and extract detailed information regarding the **Antigen**. 
+
+  ## Instruction regarding SEQ ID NO list
+
+  We will provide Antigens, a `SEQ ID NO list` and `context` related to the SEQ ID NO in the list.
+  The SEQ ID NO list corresponds to proteins that does not contain antibody variable regions. 
+  The proteins in SEQ ID NO list can be the provided antigen, or not. 
+  
+  From the context, if there is clear evidence that the given SEQ ID NO belongs to the provided antigen, match it.
+  If there is no clear evidence that the given SEQ ID NO belongs to the provided antigen, leave it blank. 
+  
+  If there is no associated numbers in the SEQ ID NO list, gather other information except for SEQ ID NO.  
+  Context may include details regarding SEQ ID NO, state, mutation, oligomeric state of the antigen. 
+  Report details only the information that is explicitly mentioned in the context. 
+
+  ## Steps
+  1. Match SEQ ID NO with given antigen information, if there is any associated SEQ ID NO corresponds to the given antigen. 
+  2. If there is no associated SEQ ID NO corresponds to the given antigen, leave SEQ ID NO blank. 
+  3. If there is associated SEQ ID NO corresponds to the given antigen, collect detailed properties of each SEQ ID NO indexed antigens. (e.g., state, mutation, oligomeric state of the antigen, ETC.). These informations might not be mentioned in the context. In this case leave it blank. 
+
+  ---
+
+  ## Output Format
+  
+  Answer antigen details in **JSON** dictionary list with following keys:
+    - `name`: The name of the antigen. Use the name we found in previous step. 
+    - `organism`: The species of organism to which the antigen belongs. Use the name we found in previous step. 
+    - `seq_id_no`: The given SEQ ID NO of the antigen. 
+    - `state`: The words that is related to state of the antigen. (e.g., mature, immature, pro-, pre-). 
+    - `mutation`: If antigen sequence is mutated, specify the symbol referring to the mutation. If the sequence has multiple mutations, list all the symbols and separate symbols by semicolons `;`. 
+    - `oligomer`: Report the oligomeric state (e.g., monomer, dimer, trimer) of the antigen if there is specific mention about it.
+    - `region`: Which part of the protein does this sequence correspond to. (e.g. some domain, motif, site of protein).
+  {strain}
+
+  ### Output Format Example
+  ```json
+  [
+    {{
+      "name": "Mpl",
+      "organism": "Human",
+      "seq_id_no": 3,
+      "state": null,
+      "mutation": null,
+      "oligomer": null,
+      "region": "Receptor Binding Domain"
+    }},
+    {{
+      "name": "Mpl",
+      "organism": "Cynomolgus monkey",
+      "seq_id_no": 4,
+      "state": "latent",
+      "mutation": "G30T",
+      "oligomer": "homodimer",
+      "region": null
+    }}
+  ]
+  ```
+  ---
+  # Task
+  Let's begin our task. Check antigen, SEQ ID NO list, context and find details regarding antigen. 
+
+  ## Antigens:
+  {ag_keyword}
+
+  ## SEQ ID NO list:
+  {idx_list}
+
+  ## Context:
+  {context}
+
+  ## Answer: 
+input_variables: ['ag_keyword', 'idx_list', 'strain', 'context']

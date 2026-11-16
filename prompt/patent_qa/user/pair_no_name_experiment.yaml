@@ -1,0 +1,86 @@
+_type: "prompt"
+template: |
+  # STEP 2 - Binding Affinity extraction
+  Your task is to extract and report binding affinity measurement results as structured JSON object according to the following guidelines. 
+
+  # Instructions
+
+  ## INPUTS (provided in every turn)
+  • Antigen list  – name, SEQ ID NO, oligomeric state, etc.  
+  • Antibody list – name plus SEQ ID NO of components.  
+  • Context       – text or tables describing antibody–antigen experiments.
+
+  # Extraction Guidelines
+
+  1. **Identify Antigen in the binding affinity experiment.**
+  Read the provided antigen list and identify which antigen used in this binding affinity experiment. 
+  For each antigen, ag_idx, name, organism, SEQ ID NO, state, oligomeric state, mutation, subtype, strains will be stated. 
+  When reporting a result, state the antigen by antigen index (`ag_idx`). 
+
+  2. **Identify SEQ ID NO in the binding affinity experiment**.
+  From antibody pair, identify what is the SEQ ID NO of heavy chain and SEQ ID NO of light chain. 
+  When reporting an antibody, report by SEQ ID NO of heavy chain and light chain. 
+
+  3. **Extract Binding Affinity Measurements**
+  Extract binding affinity values only if there are explicitly reported as **single, specific experimental measurements** for an antibody-antigen pair. 
+  For each results, specify:
+    - `measurement`: The type of binding affinity measured. 
+    - `value`: The numerical value reported for the measurement. 
+    - `unit`: The unit for the value (e.g., nM, µM, pM). If not explicitly stated, report as `null`.
+    - `approximate value`: JSON boolean. Use `true` only when the reported numeric value is explicitly approximate; otherwise use `false`.
+    
+  **Do NOT extract or report**:
+    - Thresholds or ranges (e.g., "greater than", "at least", "less than", "<", ">", "≥", "≤").
+    - Example or generic/ambiguous terms (such as "affinity" without specifying the measurement type). 
+
+  ### Measurement-Identification Rules
+
+  1. **Record Explicit Terms as Written**
+      - If the text explicitly mentions terms such as `KD`, `kon` (or `ka`), `koff` (or `kd`), `IC50`, `EC50`, or `Rmax`, use the **exact string** as the value for the `"measurement"` field.
+      - Match the original case and spelling
+  2. **Ambiguous Terms → Map Using Context**
+      - If non-specific terms like `binding affinity`, `affinity constant`, or `binding constant` are used, examine the surrounding sentences, definitions, or units to **infer and map to the actual metric** being described.
+          
+          • Example: “binding affinity is defined as the reciprocal of antigen concentration that gives 50% inhibition” → `measurement = "IC50"`
+          
+          • Example: "The binding constants were determined as the Fab concentration (g/l) at 50% binding divided by the approximate molecular weight of the Fab." → `measurement = "apparent KD"`
+
+      - If the context does **not allow you to determine the specific metric**, do **not extract** that item.
+      - Write your reasoning in the answer
+      
+  3. **Retain Modifiers or Adjectives**
+      - If adjectives are attached, such as `apparent KD`, `functional KD`, or `cell-surface KD`,
+          
+          include the adjective(s) **exactly as written** in the `"measurement"` value.
+          
+          Example: `"measurement": "apparent KD"`
+
+  4. **Flag Approximate Numeric Values**
+      - Extract a single numeric value qualified by `approximately`, `approx.`, `about`, `around`, `ca.`, or `~`, and set `"approximate value": true`.
+      - Also use `true` when the reported result is calculated from an explicitly approximate core input, such as an approximate molecular weight.
+      - Use `false` for an exact reported value.
+      - `apparent` describes the measurement model and does not by itself make a value approximate.
+      - Do not convert thresholds or ranges into approximate single values.
+
+  # Output Format
+  Report your answer as a JSON list enclosed by triple backticks(```) as a cod block. If any required information is missing or not stated in the context, use `null` as the value. Each object in JSON list contains the following keys:
+    - `ag_idx`
+    - `heavy_seq_id_no`
+    - `light_seq_id_no`
+    - `measurement`
+    - `value`
+    - `unit`
+    - `approximate value`
+    
+  ---
+  # Task
+  Now Your Turn. Read the following context, and antigen list and extract all explicit antibody–antigen binding affinity results as JSON enclosed by code block(```) according to the system rules.
+
+  ## Context:
+  {context}
+
+  ## Antigen List:
+  {antigen}
+
+  ## Answer:
+input_variables: ["context", "antigen"]

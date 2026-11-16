@@ -1,0 +1,661 @@
+{
+  "packaged_at_utc": "2026-11-16T08:21:57.393897+00:00",
+  "status": "repository_snapshot",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 16,
+      "sha256": "a6fa3fba3845bda1b64b03eb365c97d2b87b402303e01aa912f93a71e2475126",
+      "origin": "packaging_document_or_generated_index"
+    },
+    {
+      "path": ".gitattributes",
+      "origin": "packaging_document_or_generated_index",
+      "bytes": 19,
+      "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 328,
+      "sha256": "1fe56c30ffc5e48f0cf9968853cb4d16421e1fe060ed9fdf31a2ba1dc781310f",
+      "origin": "selected_software_candidate",
+      "source_sha256": "0e979c0b746ed8cb7d620bba5fd6b21426083306716c9bc4ea0953d283875f1a",
+      "byte_identical_to_source": false
+    },
+    {
+      "path": "CITATION.cff",
+      "bytes": 865,
+      "sha256": "f7adf5875e5b844e75e16cda10e2a7817289e1e12ffed9e82194f675ff6c32fd",
+      "origin": "packaging_document_or_generated_index"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4308,
+      "sha256": "80401492c6818dc3e57de5566646a802d7628fc38e79c23e0fcac1af6be068e4",
+      "origin": "packaging_document_or_generated_index"
+    },
+    {
+      "path": "codes/__init__.py",
+      "bytes": 170,
+      "sha256": "426e50baf7dcbd8873b9c21bcc4023979911935eaf48a2d304435699bbe5b050",
+      "origin": "selected_software_candidate",
+      "source_sha256": "426e50baf7dcbd8873b9c21bcc4023979911935eaf48a2d304435699bbe5b050",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/base.py",
+      "bytes": 537,
+      "sha256": "b1514302d1200908eb43cc56e8afc1c4360148fc5eedcb13524bcfaefbd02c12",
+      "origin": "selected_software_candidate",
+      "source_sha256": "b1514302d1200908eb43cc56e8afc1c4360148fc5eedcb13524bcfaefbd02c12",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/eval/__init__.py",
+      "bytes": 62,
+      "sha256": "14f17d6572b90ce390574093ea30670e0f55fa79fff5f8930d9ea51c767289c2",
+      "origin": "selected_software_candidate",
+      "source_sha256": "14f17d6572b90ce390574093ea30670e0f55fa79fff5f8930d9ea51c767289c2",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/eval/antibody_metrics.py",
+      "bytes": 2864,
+      "sha256": "0f0db95dfcf90875983f34da4f45b17c320aaf3da30ecf56211e0a9ed9dcfbb7",
+      "origin": "selected_software_candidate",
+      "source_sha256": "0f0db95dfcf90875983f34da4f45b17c320aaf3da30ecf56211e0a9ed9dcfbb7",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/eval/exp_converter.py",
+      "bytes": 37001,
+      "sha256": "54baaf276a4788438cfa49055cb94c9bf65dc1f47af04b898ae77d023e4b2216",
+      "origin": "selected_software_candidate",
+      "source_sha256": "54baaf276a4788438cfa49055cb94c9bf65dc1f47af04b898ae77d023e4b2216",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/eval/experiment_metrics.py",
+      "bytes": 10286,
+      "sha256": "05f2b9ec490aa9e92ae9ebf2d8b6b3df2f6045c9172fe5932c79ed346bded402",
+      "origin": "selected_software_candidate",
+      "source_sha256": "05f2b9ec490aa9e92ae9ebf2d8b6b3df2f6045c9172fe5932c79ed346bded402",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/eval/metric_aggregation.py",
+      "bytes": 3760,
+      "sha256": "3a3629ea7ee50bf3dbdc9830467bd6c5b325895155f32cf9788d714d85abd2f5",
+      "origin": "selected_software_candidate",
+      "source_sha256": "3a3629ea7ee50bf3dbdc9830467bd6c5b325895155f32cf9788d714d85abd2f5",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/__init__.py",
+      "bytes": 95,
+      "sha256": "e4240bab6dd38f908006dfb215a59d14cdc6dedc9c7bbb934e29650d52750daa",
+      "origin": "selected_software_candidate",
+      "source_sha256": "e4240bab6dd38f908006dfb215a59d14cdc6dedc9c7bbb934e29650d52750daa",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/categorize_protein.py",
+      "bytes": 2903,
+      "sha256": "c4363bcc6b25f047078d023aef10e32a9ee22ef74cdfe269c6e87e03363b35cc",
+      "origin": "selected_software_candidate",
+      "source_sha256": "c4363bcc6b25f047078d023aef10e32a9ee22ef74cdfe269c6e87e03363b35cc",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/custom_splitter.py",
+      "bytes": 14997,
+      "sha256": "ad55200b49d9a85d487dbe86fea09ea7f87ca936df2f666dddbafa720bb06945",
+      "origin": "selected_software_candidate",
+      "source_sha256": "ad55200b49d9a85d487dbe86fea09ea7f87ca936df2f666dddbafa720bb06945",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/script_converter.py",
+      "bytes": 10940,
+      "sha256": "5a7a444e8f774e4c87364978cbcf3cc8792edab2c14bab2662c927544a994b65",
+      "origin": "selected_software_candidate",
+      "source_sha256": "5a7a444e8f774e4c87364978cbcf3cc8792edab2c14bab2662c927544a994b65",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/split_docs.py",
+      "bytes": 28719,
+      "sha256": "e4568c7eebe6b0ea017619683922ef8a33d29f8d203fd653256af6e3dee06cac",
+      "origin": "selected_software_candidate",
+      "source_sha256": "e4568c7eebe6b0ea017619683922ef8a33d29f8d203fd653256af6e3dee06cac",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/preprocess/table.py",
+      "bytes": 37700,
+      "sha256": "5ffb171895d9e21dcfb3ba73b8c0503c56663275dfd725fef809bb0b947d8244",
+      "origin": "selected_software_candidate",
+      "source_sha256": "5ffb171895d9e21dcfb3ba73b8c0503c56663275dfd725fef809bb0b947d8244",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "selected_software_candidate",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/assistant.py",
+      "bytes": 3996,
+      "sha256": "205a90ad465738abac8945831884c53048cc8a41caf33249522fc1861af4f2e7",
+      "origin": "selected_software_candidate",
+      "source_sha256": "205a90ad465738abac8945831884c53048cc8a41caf33249522fc1861af4f2e7",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/find_ab.py",
+      "bytes": 26513,
+      "sha256": "04e1e10100055363a4059cd9424f48f28e5509f98af8e9b8d668ea54c639f652",
+      "origin": "selected_software_candidate",
+      "source_sha256": "04e1e10100055363a4059cd9424f48f28e5509f98af8e9b8d668ea54c639f652",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/find_ag.py",
+      "bytes": 30277,
+      "sha256": "b7b27838afa1a7ec51fbe9ead0bf4618c0c877fd85665eeac50f998369c1bfa6",
+      "origin": "selected_software_candidate",
+      "source_sha256": "b7b27838afa1a7ec51fbe9ead0bf4618c0c877fd85665eeac50f998369c1bfa6",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/find_pair.py",
+      "bytes": 30405,
+      "sha256": "d4b877afdc43e12315db3294987ba3a365ade099eca6ee6848ae7adbd56cc94d",
+      "origin": "selected_software_candidate",
+      "source_sha256": "d4b877afdc43e12315db3294987ba3a365ade099eca6ee6848ae7adbd56cc94d",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/rag/utils.py",
+      "bytes": 6396,
+      "sha256": "12c42934ac3769fbf548dfadb55d74ee4bd17f6f3c0a702b338c020cab3654ba",
+      "origin": "selected_software_candidate",
+      "source_sha256": "12c42934ac3769fbf548dfadb55d74ee4bd17f6f3c0a702b338c020cab3654ba",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/state.py",
+      "bytes": 6157,
+      "sha256": "42bbbbbaca51b64314a617bd1a90464bb4088aa6712ca1e343f542c48c2fcd99",
+      "origin": "selected_software_candidate",
+      "source_sha256": "42bbbbbaca51b64314a617bd1a90464bb4088aa6712ca1e343f542c48c2fcd99",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "codes/text_splitter/__init__.py",
+      "bytes": 71,
+      "sha256": "7540b0b63558be709744c8c6b95a67af14777965ddf8636b66d08806796f9c84",
+      "origin": "selected_software_candidate",
+      "source_sha256": "7540b0b63558be709744c8c6b95a67af14777965ddf8636b66d08806796f9c84",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "config/release.yaml",
+      "bytes": 3033,
+      "sha256": "5184882efcd3915b69292581cfc061ea01469f870db8b1e78b86d5ed25dfcdde",
+      "origin": "selected_software_candidate",
+      "source_sha256": "5184882efcd3915b69292581cfc061ea01469f870db8b1e78b86d5ed25dfcdde",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/data_package.md",
+      "bytes": 1401,
+      "sha256": "98c8fa504b3bfa5bce70977067d9fa8489b5a0a94c0717b8b96c05381011dbde",
+      "origin": "packaging_document_or_generated_index"
+    },
+    {
+      "path": "docs/output_schema.md",
+      "bytes": 3404,
+      "sha256": "0e9a9e0bff7b9c61ad06db5a68efb5544d5fa6a7570900ce8826731505ff590d",
+      "origin": "selected_software_candidate",
+      "source_sha256": "0e9a9e0bff7b9c61ad06db5a68efb5544d5fa6a7570900ce8826731505ff590d",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/prepared_input.md",
+      "bytes": 2343,
+      "sha256": "d368429aa3f01c761afdb0245459def60b03d86adf50e2a7f452f5a9d02307de",
+      "origin": "selected_software_candidate",
+      "source_sha256": "d368429aa3f01c761afdb0245459def60b03d86adf50e2a7f452f5a9d02307de",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/validation_schema.md",
+      "bytes": 3316,
+      "sha256": "8275ca47f93d21f0cb6b4db29f08b919f1c0f77c267b7176746685a203e0c7fc",
+      "origin": "selected_software_candidate",
+      "source_sha256": "8275ca47f93d21f0cb6b4db29f08b919f1c0f77c267b7176746685a203e0c7fc",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "environment.yml",
+      "bytes": 596,
+      "sha256": "6f03f2dcb07da9cf9373774f53474234f3be7d503f09153a7bb65e57061d6df5",
+      "origin": "selected_software_candidate",
+      "source_sha256": "6f03f2dcb07da9cf9373774f53474234f3be7d503f09153a7bb65e57061d6df5",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_name/example1.txt",
+      "bytes": 795,
+      "sha256": "32528374fb8739972eff0dd9e3284c015b44f2137e4a26592d624f2956eb0beb",
+      "origin": "selected_software_candidate",
+      "source_sha256": "32528374fb8739972eff0dd9e3284c015b44f2137e4a26592d624f2956eb0beb",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_name/example2.txt",
+      "bytes": 3538,
+      "sha256": "195a6f5f66dfbeffaceeeea6c1dcc3d27c150743154a33eb51015432a6d398d5",
+      "origin": "selected_software_candidate",
+      "source_sha256": "195a6f5f66dfbeffaceeeea6c1dcc3d27c150743154a33eb51015432a6d398d5",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_name/example3.txt",
+      "bytes": 1600,
+      "sha256": "e40aaea7495f24572fa14a1ec13cd2ce8afee166ca15bd4ad5fb81d0540dd511",
+      "origin": "selected_software_candidate",
+      "source_sha256": "e40aaea7495f24572fa14a1ec13cd2ce8afee166ca15bd4ad5fb81d0540dd511",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_name/example4.txt",
+      "bytes": 2692,
+      "sha256": "a83cabfb652b066b02349e8618478f5a2f0eec121fe6db6c2116d848593d3b5f",
+      "origin": "selected_software_candidate",
+      "source_sha256": "a83cabfb652b066b02349e8618478f5a2f0eec121fe6db6c2116d848593d3b5f",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_pair_unnamed/example1.txt",
+      "bytes": 1866,
+      "sha256": "1189da67882e16e46681461f269a69d1533be8f28a2afd79e10d921e72d4cb5c",
+      "origin": "selected_software_candidate",
+      "source_sha256": "1189da67882e16e46681461f269a69d1533be8f28a2afd79e10d921e72d4cb5c",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_pair_unnamed/example2.txt",
+      "bytes": 1197,
+      "sha256": "3251c28a5726a49960e8a97e5e26430e49eeeca654d938fce76ae4642f8b4fbd",
+      "origin": "selected_software_candidate",
+      "source_sha256": "3251c28a5726a49960e8a97e5e26430e49eeeca654d938fce76ae4642f8b4fbd",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/ab_pair_unnamed/example3.txt",
+      "bytes": 1433,
+      "sha256": "0a4132621be7c569e95c8905cc77e0dc8e964e9e5d4041af166f7a0d4639b763",
+      "origin": "selected_software_candidate",
+      "source_sha256": "0a4132621be7c569e95c8905cc77e0dc8e964e9e5d4041af166f7a0d4639b763",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/pair_ab_name_experiment/example1.txt",
+      "bytes": 3371,
+      "sha256": "9f4c43bedc4140949e357dc7c28a0c4331dc1919ba577112bdce84a66988ff58",
+      "origin": "selected_software_candidate",
+      "source_sha256": "9f4c43bedc4140949e357dc7c28a0c4331dc1919ba577112bdce84a66988ff58",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/example/pair_ab_name_experiment/example2.txt",
+      "bytes": 1168,
+      "sha256": "53e493ec30b68c7c1926f3692824b0e0d99922d9ec70289c0044d2b370210fd2",
+      "origin": "selected_software_candidate",
+      "source_sha256": "53e493ec30b68c7c1926f3692824b0e0d99922d9ec70289c0044d2b370210fd2",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/assistant/antibody.md",
+      "bytes": 31912,
+      "sha256": "a82fdfa87edd96fccec2142c44348e26109b2956894c22db169020ddda517fe0",
+      "origin": "selected_software_candidate",
+      "source_sha256": "a82fdfa87edd96fccec2142c44348e26109b2956894c22db169020ddda517fe0",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/assistant/measurement.md",
+      "bytes": 9803,
+      "sha256": "6e585891dc7ce047d2fbfac90f922e1c28e696953f350dfe559238b7abf01962",
+      "origin": "selected_software_candidate",
+      "source_sha256": "6e585891dc7ce047d2fbfac90f922e1c28e696953f350dfe559238b7abf01962",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/assistant/patent.md",
+      "bytes": 4636,
+      "sha256": "0c481b6a54276dd408cd01a0869966b256ef62f80179581c504ff5f0bb9c52bf",
+      "origin": "selected_software_candidate",
+      "source_sha256": "0c481b6a54276dd408cd01a0869966b256ef62f80179581c504ff5f0bb9c52bf",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/ab_name.yaml",
+      "bytes": 11157,
+      "sha256": "52aaf9c4cc569aa8f0f67706492ab8c18955e12e1217c3228d5b9e82f41e27e7",
+      "origin": "selected_software_candidate",
+      "source_sha256": "52aaf9c4cc569aa8f0f67706492ab8c18955e12e1217c3228d5b9e82f41e27e7",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/alias_mapping.yaml",
+      "bytes": 1781,
+      "sha256": "6e630ec5e5f00e1e03e6438310761a168b6bb1baf09becdd5f301440f8f3220e",
+      "origin": "selected_software_candidate",
+      "source_sha256": "6e630ec5e5f00e1e03e6438310761a168b6bb1baf09becdd5f301440f8f3220e",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/default.md",
+      "bytes": 6263,
+      "sha256": "d2fe9ae2b2ee4e22c77fe49f8a9b7d3bf981453c28ce99ceb2761202a5ec8db2",
+      "origin": "selected_software_candidate",
+      "source_sha256": "d2fe9ae2b2ee4e22c77fe49f8a9b7d3bf981453c28ce99ceb2761202a5ec8db2",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/default.yaml",
+      "bytes": 6479,
+      "sha256": "49051e1605902c332a16592f698f99fa153b0df6802f4add5f9ea8809b0f28b6",
+      "origin": "selected_software_candidate",
+      "source_sha256": "49051e1605902c332a16592f698f99fa153b0df6802f4add5f9ea8809b0f28b6",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/pair_ab_id.yaml",
+      "bytes": 4711,
+      "sha256": "b57cf23cb2a254e052b7ebfeb48cd38c5833c32520cb3856031800d242392295",
+      "origin": "selected_software_candidate",
+      "source_sha256": "b57cf23cb2a254e052b7ebfeb48cd38c5833c32520cb3856031800d242392295",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/pair_ab_name.md",
+      "bytes": 4579,
+      "sha256": "504033055da2707eab1293c6b424ededdbbd8783510e59838eb8104838646f70",
+      "origin": "selected_software_candidate",
+      "source_sha256": "504033055da2707eab1293c6b424ededdbbd8783510e59838eb8104838646f70",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/pair_ab_name.yaml",
+      "bytes": 4103,
+      "sha256": "7e75ffea545bbb841b01b42b980156e6a5cfb582d587cff4e5da6721bffd830d",
+      "origin": "selected_software_candidate",
+      "source_sha256": "7e75ffea545bbb841b01b42b980156e6a5cfb582d587cff4e5da6721bffd830d",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/pair_ab_name_experiment.yaml",
+      "bytes": 3236,
+      "sha256": "d26b968a88296a785f842b4d9d9d3547a7d80a554eabec3da7761b5bfaea422b",
+      "origin": "selected_software_candidate",
+      "source_sha256": "d26b968a88296a785f842b4d9d9d3547a7d80a554eabec3da7761b5bfaea422b",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/system/pair_ab_unnamed.yaml",
+      "bytes": 3939,
+      "sha256": "2a116bce8c47ba187af63e3d7d1073404952ca9d127ae8f7bf118cafbc67f3a2",
+      "origin": "selected_software_candidate",
+      "source_sha256": "2a116bce8c47ba187af63e3d7d1073404952ca9d127ae8f7bf118cafbc67f3a2",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_name.yaml",
+      "bytes": 3009,
+      "sha256": "451c4ae33fb0452db671fc16da362133b24584747ce1096eb5e90ac84e305004",
+      "origin": "selected_software_candidate",
+      "source_sha256": "451c4ae33fb0452db671fc16da362133b24584747ce1096eb5e90ac84e305004",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_name_duplicated.yaml",
+      "bytes": 2799,
+      "sha256": "a99801cf2c470dd31c1f322cbbec777a73ca8d5bc7d34cd9c1bc6b74f6b8ea55",
+      "origin": "selected_software_candidate",
+      "source_sha256": "a99801cf2c470dd31c1f322cbbec777a73ca8d5bc7d34cd9c1bc6b74f6b8ea55",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_name_to_id.yaml",
+      "bytes": 377,
+      "sha256": "e0ea290a5ead3d088b7df4a9189eba01d994eb93e095ca6a6b45f0ff99e745db",
+      "origin": "selected_software_candidate",
+      "source_sha256": "e0ea290a5ead3d088b7df4a9189eba01d994eb93e095ca6a6b45f0ff99e745db",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_pair_named_left.yaml",
+      "bytes": 2321,
+      "sha256": "be5b5eaf5945336c27ec886bfeb1b0623db8185846fc3ee9305a9160271b52c7",
+      "origin": "selected_software_candidate",
+      "source_sha256": "be5b5eaf5945336c27ec886bfeb1b0623db8185846fc3ee9305a9160271b52c7",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_pair_unnamed.md",
+      "bytes": 2598,
+      "sha256": "eaf64c983556e3fc7a590d021bf8592557c5a69fea9beed83a26656d98621354",
+      "origin": "selected_software_candidate",
+      "source_sha256": "eaf64c983556e3fc7a590d021bf8592557c5a69fea9beed83a26656d98621354",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ab_pair_unnamed.yaml",
+      "bytes": 2980,
+      "sha256": "6622c4ccce17626b7e9ad2bea50d6eab0901cb1b8902faa659b90a54e3123d41",
+      "origin": "selected_software_candidate",
+      "source_sha256": "6622c4ccce17626b7e9ad2bea50d6eab0901cb1b8902faa659b90a54e3123d41",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ag.yaml",
+      "bytes": 2880,
+      "sha256": "ebcef1e2a153f15a01cedfdf2abd6a9c29b9b12907c8f12ae77cee013b43b004",
+      "origin": "selected_software_candidate",
+      "source_sha256": "ebcef1e2a153f15a01cedfdf2abd6a9c29b9b12907c8f12ae77cee013b43b004",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ag_accession.yaml",
+      "bytes": 1315,
+      "sha256": "c1e653bd240fb810d0e01ccc3a342f81f6769c595e4d64b3488ba74549f52df1",
+      "origin": "selected_software_candidate",
+      "source_sha256": "c1e653bd240fb810d0e01ccc3a342f81f6769c595e4d64b3488ba74549f52df1",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ag_detail.yaml",
+      "bytes": 3661,
+      "sha256": "38e50393fc6a48a4930e347dfb82b1c61981afb0288b657aab58ca40b697ee20",
+      "origin": "selected_software_candidate",
+      "source_sha256": "38e50393fc6a48a4930e347dfb82b1c61981afb0288b657aab58ca40b697ee20",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/ag_main.yaml",
+      "bytes": 1109,
+      "sha256": "5aba8454b75da1535cb989b34719585814f21df68e4a5225131a4252ab1858eb",
+      "origin": "selected_software_candidate",
+      "source_sha256": "5aba8454b75da1535cb989b34719585814f21df68e4a5225131a4252ab1858eb",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/alias_mapping.yaml",
+      "bytes": 721,
+      "sha256": "c9bfb3c1b8b5c44857755ebdf4be55f1f7e245964be5052c2646ebaca130b074",
+      "origin": "selected_software_candidate",
+      "source_sha256": "c9bfb3c1b8b5c44857755ebdf4be55f1f7e245964be5052c2646ebaca130b074",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/experiment_summary.yaml",
+      "bytes": 1608,
+      "sha256": "da013d0b0b65729ad22445a49b5acd4fe7a80c31b01108f2697d75005d4aac4d",
+      "origin": "selected_software_candidate",
+      "source_sha256": "da013d0b0b65729ad22445a49b5acd4fe7a80c31b01108f2697d75005d4aac4d",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_ab_id.yaml",
+      "bytes": 793,
+      "sha256": "519ee60781e4b58a9f09e1d2a55fa8a8dcacb54394384e80cf845fcf4d5de745",
+      "origin": "selected_software_candidate",
+      "source_sha256": "519ee60781e4b58a9f09e1d2a55fa8a8dcacb54394384e80cf845fcf4d5de745",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_ab_name.yaml",
+      "bytes": 1898,
+      "sha256": "79e6a70719d1abee367a2d3d245108a02029aff888408102cb8955d195892d64",
+      "origin": "selected_software_candidate",
+      "source_sha256": "79e6a70719d1abee367a2d3d245108a02029aff888408102cb8955d195892d64",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_ab_name_experiment.md",
+      "bytes": 1699,
+      "sha256": "93860cd94a8302a94a8d729578286b267c220a667674b7b951b7506b9544d2db",
+      "origin": "selected_software_candidate",
+      "source_sha256": "93860cd94a8302a94a8d729578286b267c220a667674b7b951b7506b9544d2db",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_ab_name_experiment.yaml",
+      "bytes": 5030,
+      "sha256": "2cfb6b95f9c5859ca8ef53e22e4e183368ad349929f5447749b32a867a83ff53",
+      "origin": "selected_software_candidate",
+      "source_sha256": "2cfb6b95f9c5859ca8ef53e22e4e183368ad349929f5447749b32a867a83ff53",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_ab_unnamed.yaml",
+      "bytes": 2009,
+      "sha256": "027dce97f002e9e44e05f0382ddeae569ecb5a02633652daedd63657d9999bd9",
+      "origin": "selected_software_candidate",
+      "source_sha256": "027dce97f002e9e44e05f0382ddeae569ecb5a02633652daedd63657d9999bd9",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/pair_no_name_experiment.yaml",
+      "bytes": 4659,
+      "sha256": "16ea4a12590216c9bfabafb4dd102c3c33937f05822a15ceabbb75b91db6d371",
+      "origin": "selected_software_candidate",
+      "source_sha256": "16ea4a12590216c9bfabafb4dd102c3c33937f05822a15ceabbb75b91db6d371",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/strain.yaml",
+      "bytes": 431,
+      "sha256": "7d8880ce24437d980ed02504e68ccdb17a5bc89d83cbe6c7fe16e053f3e37e0a",
+      "origin": "selected_software_candidate",
+      "source_sha256": "7d8880ce24437d980ed02504e68ccdb17a5bc89d83cbe6c7fe16e053f3e37e0a",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/patent_qa/user/summary.yaml",
+      "bytes": 909,
+      "sha256": "c1afa77b535612169c17f6bdf2ffcfb844d90d984cbe5c0caf02b6614422547e",
+      "origin": "selected_software_candidate",
+      "source_sha256": "c1afa77b535612169c17f6bdf2ffcfb844d90d984cbe5c0caf02b6614422547e",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/preprocess/system/table_ab_name_location.yaml",
+      "bytes": 3203,
+      "sha256": "881da0321427217aad4a5d48702435329048878396a63e7aa3550353c5133770",
+      "origin": "selected_software_candidate",
+      "source_sha256": "881da0321427217aad4a5d48702435329048878396a63e7aa3550353c5133770",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/preprocess/system/table_summary.yaml",
+      "bytes": 9152,
+      "sha256": "6bef85b7dd75369041957f649839d4b1ff1fe633c8fc584031dc3eb72e2baa17",
+      "origin": "selected_software_candidate",
+      "source_sha256": "6bef85b7dd75369041957f649839d4b1ff1fe633c8fc584031dc3eb72e2baa17",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/preprocess/table_summary_multilev_user.txt",
+      "bytes": 985,
+      "sha256": "63ce4371b93b3070223221cf9784f1d8177c35e2a67ce9e1aa9a2f8d6474def9",
+      "origin": "selected_software_candidate",
+      "source_sha256": "63ce4371b93b3070223221cf9784f1d8177c35e2a67ce9e1aa9a2f8d6474def9",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/preprocess/user/table_ab_name_location.yaml",
+      "bytes": 335,
+      "sha256": "f4ed52ac9524f98230c7512b5ad653edf49e2cc4f1a521739e66902f33775bbc",
+      "origin": "selected_software_candidate",
+      "source_sha256": "f4ed52ac9524f98230c7512b5ad653edf49e2cc4f1a521739e66902f33775bbc",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "prompt/preprocess/user/table_summary.yaml",
+      "bytes": 607,
+      "sha256": "eb577919ce82ad8470ee94742bb47293f86b55d58285417fd54f4c60a51a0266",
+      "origin": "selected_software_candidate",
+      "source_sha256": "eb577919ce82ad8470ee94742bb47293f86b55d58285417fd54f4c60a51a0266",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "scripts/evaluate_validation.py",
+      "bytes": 12053,
+      "sha256": "55985e18e3e0b146a29987bb3feec0bf6f2520bd2f2b7d020c0bdfeff75dc51a",
+      "origin": "selected_software_candidate",
+      "source_sha256": "55985e18e3e0b146a29987bb3feec0bf6f2520bd2f2b7d020c0bdfeff75dc51a",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "scripts/run_extraction.py",
+      "bytes": 14836,
+      "sha256": "09e8f4a2ea372bf2502c790266b1c6a3646b048b4a9f67674625d89055980718",
+      "origin": "selected_software_candidate",
+      "source_sha256": "09e8f4a2ea372bf2502c790266b1c6a3646b048b4a9f67674625d89055980718",
+      "byte_identical_to_source": true
+    }
+  ],
+  "excluded": [
+    "raw_patent_html",
+    "manual_evaluation_annotations",
+    "benchmark_predictions",
+    "internal_logs_and_caches"
+  ],
+  "license_status": "not_assigned",
+  "checksum_self_exclusions": [
+    "SOURCE_MANIFEST.json",
+    "SHA256SUMS"
+  ],
+  "validation": {
+    "run_extraction.py_help": "passed",
+    "evaluate_validation.py_help": "passed",
+    "synthetic_prepared_input": "passed",
+    "invalid_markup_rejected": "passed",
+    "synthetic_evaluation_tp_fp_unjudged": "passed",
+    "python_syntax": "passed",
+    "live_extraction": "not_run",
+    "clean_environment_install": "not_run",
+    "manuscript_metrics": "not_reproduced",
+    "full_mapping_and_curation_rebuild": "not_packaged"
+  },
+  "updated_at_utc": "2026-11-16T10:32:44.232604+00:00",
+  "repository_url": "https://github.com/SujaeJeong/ABPairDB"
+}

@@ -1,0 +1,37 @@
+_type: "prompt"
+template: |
+  Read the context and identify the pairs of antibodies and antigens from the provided antigen list and antibody list.
+
+  In the antigen list, all antigens from the patents are given with their antigen index, name, organism, SEQ ID NO, state, complex information, and mutation information. 
+  While the antigens share some common properties, they also differ in specific ways. 
+  Clearly distinguish these differences so you can accurately determine which antigen is involved in each pair. 
+  When you report an antigen, include its `ag_idx` (antigen index).
+
+  In the antibody list, partial antibody information is provided, including each antibody’s name and the SEQ ID NO of its components. 
+  Again, clearly distinguish any differences so you can accurately determine which antibody is involved in each pair. 
+  When you report an antibody, include its `ab_name`.
+
+  In the context, there are multiple antibody - antigen pairs. 
+  Report each pair in **JSON FORMAT**. 
+  
+  ## Output Format
+  Report the results in **JSON FORMAT**. The output **must be enclosed within triple backticks (```), like a code block**.
+  If an antigen binds to multiple antibodies, create a list of dictionaries (one dictionary per binding). Each dictionary must include:
+    - `ag_idx`: The antigen index (`ag_idx`) from the antigen list that matches the binding.
+    - `ab_name`: The name of the antibody.
+    - `reference`: The value(s) of the "data-index" attribute found in the <chunk> tag in the context. If there are multiple references, list them separated by a semicolon (;).
+    - `reason`: The basis or justification for why you concluded that this antibody binds this antigen, according to the references. 
+
+  ---
+
+  ## Context:
+  {context}
+
+  ## Antigen List:
+  {antigen}
+
+  ## Antibody List:
+  {antibody}
+  
+  ## Answer:
+input_variables: ['context', 'antigen', 'antibody']

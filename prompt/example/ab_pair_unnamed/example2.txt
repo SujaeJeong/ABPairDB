@@ -1,0 +1,40 @@
+## Example 2
+
+### Context:
+```<chunk>
+<metadata>
+<h3>Description</h3><h4></h4><h5></h5>
+<SEQ_ID_NO>[486, 581, 487, 582, 492]</SEQ_ID_NO>
+</metadata>
+<page_content>
+The invention further provides an embodiment of the antibody construct of the invention, wherein the first binding domain comprises a heavy chain and a light chain selected from the group consisting of:<br>(1) pairs of a heavy chain and a light chain as depicted in SEQ ID NOs: 486+581, SEQ ID NOs: 487+582, SEQ ID NOs: 492+581, all pairs grouped into bin 1;    
+</page_content>
+</chunk>
+```
+
+### SEQ ID NO list:
+[486, 487, 490, 491, 492]
+
+
+### Answer: 
+The chunk explains embodiment of the antibody construct of the invention. 
+
+We need to find light chains that are paired with the heavy chains corresponding to SEQ ID NOs 486, 487, 490, 491, and 492. 
+Within this chunk, heavy chains with SEQ ID NOs 486, 487, and 492 are found, and they are paired with light chains with SEQ ID NOs 581, 582, and 581, respectively. 
+
+```json
+[
+  {{
+    "heavy_seq_id_no": 486,
+    "light_seq_id_no": 581
+  }},
+  {{
+    "heavy_seq_id_no": 487,
+    "light_seq_id_no": 582
+  }},
+  {{
+    "heavy_seq_id_no": 492,
+    "light_seq_id_no": 581
+  }}
+]
+```

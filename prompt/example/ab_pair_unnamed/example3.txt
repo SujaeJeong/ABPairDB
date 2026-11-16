@@ -1,0 +1,35 @@
+## Example 3
+
+### Context:
+```
+<chunk data-index=511>
+<metadata>
+<h3>Description</h3><h4>Examples</h4><h5>Example 8</h5>
+<table_index>TABLE 11</table_index><table_title>Anti CD30 antibodies</table_title><SEQ_ID_NO>[1, 2, 6, 5]</SEQ_ID_NO><columns><tr><th>Heavy Chain SEQ ID NO<ol><li>SEQ ID NO</li></ol></th><th>Light Chain SEQ ID NO<ol><li>SEQ ID NO</li></ol></th></tr></th></tr></columns>
+</metadata>
+<page_content>
+<table><thead><tr><td>TABLE 11</td></tr><tr><td colspan="1" nameend="1" namest="1" rowsep="1">Anti CD30 antibodies</td></tr></thead><tbody><tr><td align="center" colspan="1" nameend="1" namest="1" rowsep="1"> </td></tr><tr><td>Heavy Chain</td><td>Light Chain</td></tr><tr><td>SEQ ID NO</td><td>SEQ ID NO</td></tr><tr><td>1</td><td>6</td></tr><tr><td>2</td><td>5</td></tr>
+</page_content>
+```
+
+### SEQ ID NO list:
+[1, 2, 3, 4]
+
+### Answer:
+The table lists the anti-CD30 antibodies. The SEQ ID NOs of the antibody heavy chains are presented in the first column, and those of the light chains are in the second column.
+
+We need to find the light chains that are paired with the heavy chains corresponding to SEQ ID NOs 1, 2, 3, and 4.
+Within this chunk, heavy chains with SEQ ID NOs 1 and 2 are found, and they are paired with light chains with SEQ ID NOs 6 and 5, respectively.
+
+```json
+[
+  {{
+    "heavy_seq_id_no": 1,
+    "light_seq_id_no": 6
+  }},
+  {{
+    "heavy_seq_id_no": 2,
+    "light_seq_id_no": 5
+  }}
+]
+```

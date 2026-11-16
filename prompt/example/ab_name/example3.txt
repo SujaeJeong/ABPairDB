@@ -1,0 +1,50 @@
+## Example 3
+
+### Context:
+```
+Chunk info:
+
+Headings:
+  Heading 3: Background/Summary
+  Heading 4: Figure Description
+  Heading 5:
+
+Page content:
+FIGS. 23A and 23B show an amino acid sequence alignment of the light chain variable region and the heavy chain variable region of monoclonal antibody 81.39 SVSH-NYP (“SVSH” disclosed as SEQ ID NO: 171) (SEQ ID NOs:117 and 115, respectively) with immunoglobulin kappa variable 3-15*01 germ-line (IGKV3-15*01) and the immunoglobulin heavy chain variable 3-30*01 germ-line (IGHV3-30*01) (SEQ ID NOs:236 and 237, respectively). The amino acids are numbers according to Kabat numbering. 
+```
+
+### SEQ ID NO list:
+[117, 115, 236, 237]
+
+### Answer:
+Monoclonal antibody 81.39 SVSH-NYP light chain variable region corresponds to SEQ ID NO 117 and heavy chain variable region corresponds to SEQ ID NO 115. 
+
+Immunoglobulin kappa variable 3-15*01 germ-line (IGKV3-15*01) corresponds to SEQ ID NO 236.
+SEQ ID NO 236 is a germline sequences. They fall under exclusion criteria. 
+Immunoglobulin heavy variable 3-30*01 germ-line (IGHV3-30*01) corresponds to SEQ ID NO 237.
+SEQ ID NO: 237 is a germline sequences. They fall under exclusion criteria. 
+
+```json
+[
+    {{
+        "seq_id_no": 117,
+        "name": "81.39 SVSH-NYP",
+        "exclusion": false
+    }},
+    {{
+        "seq_id_no": 115,
+        "name": "81.39 SVSH-NYP",
+        "exclusion": false
+    }},
+    {{
+        "seq_id_no": 236,
+        "name": "IGKV3-15*01",
+        "exclusion": true
+    }},
+    {{
+        "seq_id_no": 237,
+        "name": "IGHV3-30*01",
+        "exclusion": true
+    }}
+]
+```

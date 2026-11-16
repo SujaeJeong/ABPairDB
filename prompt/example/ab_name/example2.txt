@@ -1,0 +1,93 @@
+## Example 2: Find Antibody name from table
+
+### Hint from text-mining:
+The table has maximum 3 columns in each rows. 
+And there are 2 types of antibody components in the table. 
+- variable heavy chain domain (VH) SEQ ID NO column located in column 3. 
+- variable light chain domain (VL) SEQ ID NO column located in column 3. 
+
+### Context
+```
+Chunk info:
+
+Headings:
+  Heading 3: Descriptions
+  Heading 4: EXAMPLES
+  Heading 5: Example 1. 
+
+Column Structure:
+  Column 1: Antibody chain or domain
+  - Element 1: Antibody name (string)
+  - Element 2: Antibody component (string)
+  Column 2: Sequences
+  - Element 1: Amino acid sequence (sequence)
+  Column 3: SEQ ID NO
+  - Element 1: SEQ ID NO (integer)
+    - includes SEQ ID NO
+
+SEQ ID NO LIST:
+- variable heavy chain domain (VH): SEQ ID NO: 1
+- variable light chain domain (VL): SEQ ID NO: 2
+
+---
+Page content:
+<table><tbody><tr><td>Antibody chain or domain</td><td>Sequences</td><td>SEQ ID NO:</td></tr><tr><td rowsep="1"></td></tr></tbody></table>
+<table><tbody><entry><tr><td>90D9_</td><td>EVQLQQSGPE LVKPGASVKI SCKTSGYTFT</td><td>1</td></tr> <tr><td>134 VH</td><td>INPNQGGNRN NQKFKGKATL TVDKSSSTAY</td><td> </td></tr><tr><td> </td><td>MSTSSGGRNS GNASQARVMP</td><td> </td></tr></entry><entry><tr><td>90D8 VL</td><td>DIVMTQSHKF MSTSVGDRVS ITCKASQHVS</td><td>2</td></tr><tr><td> </td><td>INPNDGGNRN TVDKSSPTAY SAVYYRARSG</td><td> </td></tr>
+```
+
+### SEQ ID NO list
+[1, 2, 3, 4]
+
+### Answer
+From the chunk info, we can check antibody name is in first column and antibody SEQ ID NO is in third column. 
+
+Among the SEQ ID NO list we are looking for, SEQ ID NOs: 1 and 2 are referred in the given chunk.
+
+
+**For SEQ ID NO: 1**,
+  - The entry corresponds to SEQ ID NO: 1 is as below:
+    ```
+    <entry><tr><td>90D9_</td><td>EVQLQQSGPE LVKPGASVKI SCKTSGYTFT</td><td>1</td></tr> <tr><td>134 VH</td><td>INPNQGGNRN NQKFKGKATL TVDKSSSTAY</td><td> </td></tr><tr><td></td><td>MSTSSGGRNS GNASQARVMP</td><td></td></tr></entry>
+    ```
+  - This `<entry>` contains spans 3 `<tr>` rows. Three rows combine into a single antibody entry.
+  - In the first coulmn, the text spans multple rows:
+    - Row 1: `90D9`
+    - Row 2: `134 VH`
+    - Row 3: blank (name ends in before Row 3)
+  - Merging these gives "90D9_134 VH". Here:
+    - **"90D9_134"** is the antibody's name
+    - **"VH"** indicates category of antibody component, abbreviation of the variable heavy chain domain. 
+  Hence, the antibody name for **SEQ ID NO: 1** is **"90D9_134"**.
+
+
+**For SEQ ID NO: 2**,
+  - The entry corresponds to SEQ ID NO: 2 is as below:
+    ```
+    <entry><tr><td>90D8 VL</td><td>DIVMTQSHKF MSTSVGDRVS ITCKASQHVS</td><td>2</td></tr><tr><td> </td><td>INPNDGGNRN TVDKSSPTAY SAVYYRARSG</td><td> </td></tr>
+    ```
+  - The second `<entry>` is only partially shown (the chunk ends before the `</entry>`), but we can see at least two `<tr>` rows.
+  - In the first column, the antibody chain name is:
+    - Row 1: `90D8 VL`
+    - Row 2: blank (name ends in before Row 2)
+  - Merging these gives "90D8 VL"
+  - In the first column, row 1 shows 90D8 VH. Again:
+    - **“90D8”** is the antibody’s base name
+    - **“VL”** indicates antibody's domain, abbreviation of the variable light chain domain.
+  Therefore, the antibody name for **SEQ ID NO: 2** is “90D8”.
+
+
+To report answer in **JSON format**, the answer is, 
+```json
+[
+    {{
+        "seq_id_no": 1,
+        "name": "90D9_134",
+        "exclusion": false
+    }},
+    {{
+        "seq_id_no": 2,
+        "name": "90D8",
+        "exclusion": false
+    }}
+]
+```

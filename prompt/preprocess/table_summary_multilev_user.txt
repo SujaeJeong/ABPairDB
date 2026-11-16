@@ -1,0 +1,29 @@
+The things that you have to extract from the table is as follows: **title**, **columns**
+
+The table_index is at the very beginning of the table: {table_index}
+
+A **title** is followed by, located between table index and columns. 
+
+**Columns** are followed by, located between title and contents. 
+Columns are often written in multiple rows. Thus, it is important to identifying corresponding row spans. 
+The column contents are usually bottom-up aligned. 
+
+In some cases, columns are multileveled. 
+In given html table format, multilevel columns usually formed wrong. 
+Columns in two levels should be matched by their meanings. 
+1. Identifying each list of lower-level columns, higher-level columns. 
+2. In lower-level column, group repeated columns into groups. 
+3. Matching higher-level columns and grouped lower-level columns. 
+
+At the last part of the tables are footnotes. 
+
+# Output format
+
+<table_summary>
+<title>
+[title]
+</title>
+<columns>
+[columns]
+</columns>
+</table_summary>

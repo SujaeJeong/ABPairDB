@@ -1,0 +1,21 @@
+_type: "prompt"
+template: |
+  Read the context and find the SEQ ID NO of antibody components that bind with specific antigen,
+  along with the supporting passage that forms the basis of your response.
+  And provide the basis for your reasoning. 
+
+  # Specific antigen:
+  {keyword}
+
+  # Context: 
+  {context}
+
+  # Output Format
+  Report in **JSON FORMAT**. If there are multiple antibodies, report list of dictionaries. 
+    - `heavy_seq_id_no`: heavy chain SEQ ID NO of the antibody. 
+    - `light_seq_id_no`: light chain SEQ ID NO of the antibody. 
+    - `reference`: Supporting sentences that forms the basis of the response. 
+    - `reason`: The basis for your reasoning that the antibody targeting the antigen, based on the reference. 
+
+  # Answer:
+input_variables: ['keyword', 'context']

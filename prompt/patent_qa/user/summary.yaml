@@ -1,0 +1,18 @@
+_type: "prompt"
+template: |
+  In this step, we are going to summarize the patent according to the following items.
+  A patent is a document with a clear purpose. The key of patent is how the new invention addresses and solves problems. 
+
+  Summarize the patent based on the following six items retrun in **JSON format**:
+    1. Problem: Problem that researchers are trying to solve.
+    2. Invention: New inventions (antibodies) that researchers developed.
+    3. Antigen: Specific antigens that researchers mainly targeted for antibody development. Report antigen name and organism (if available).
+    4. Solution: How the new antibodies solve the problem.
+    5. Purpose of Antibody: Describe purpose of antibody. 
+    6. Validation: Experimental validation provided in the patent that demonstrates the functionality of the new antibodies.
+
+  # Context:
+  {context}
+
+  # Answer:
+input_variables: ["context"]

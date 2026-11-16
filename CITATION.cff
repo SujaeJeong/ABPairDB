@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use ABPairDB, please cite the software and the associated article."
+title: "ABPairDB: patent-derived antibody-antigen information extraction and validation"
+type: software
+authors:
+  - family-names: Jeong
+    given-names: Su Jae
+    affiliation: Korea Advanced Institute of Science and Technology (KAIST)
+  - family-names: Lee
+    given-names: Boram
+    affiliation: Korea Advanced Institute of Science and Technology (KAIST)
+  - family-names: Han
+    given-names: Shangjin
+    affiliation: Korea Advanced Institute of Science and Technology (KAIST)
+  - family-names: Kim
+    given-names: Dongsup
+    affiliation: Korea Advanced Institute of Science and Technology (KAIST)
+keywords:
+  - antibodies
+  - antigens
+  - binding affinity
+  - patents
+  - information extraction
+repository-code: "https://github.com/SujaeJeong/ABPairDB"

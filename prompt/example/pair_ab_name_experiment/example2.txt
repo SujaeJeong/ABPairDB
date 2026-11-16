@@ -1,0 +1,26 @@
+## Example 2
+
+
+### Context:
+```
+<chunk data-index=40>
+The antibody Ab 16 may bind human CCR4 with a Kd less than or equal to about 10−7, 10−8, 10−9, 10−10, 10−11 or 10−12 M. The affinity of a given molecule for CCR4, such as an antibody can be determined experimentally using any suitable method. Such methods may utilize Biacore or KinExA instrumentation, ELISA or competitive binding assays known to those skilled in the art.
+```
+
+### Antigen:
+ag_idx: **0**, Human CC chemokine receptor type 4 (CCR4; CD194), **SEQ ID NO: 1**
+ag_idx: **1**, Mouse CC chemokine receptor type 4 (CCR4; CD194), **SEQ ID NO: 3**
+
+
+### Antibodies:
+0. Name: '16' variable heavy chain domain (VH) SEQ ID NO: 6, variable light chain domain (VL) SEQ ID NO: 5
+1. Name: '17' variable heavy chain domain (VH) SEQ ID NO: 8, variable light chain domain (VL) SEQ ID NO: 7
+
+### Answer:
+Chunk 40 contains binding affinity values between antibodies and antigens.
+However, in chunk 40, instead of providing an exact binding affinity value for Ab 16, it presents a range of possible values.
+Therefore, this chunk does not contain any experimental results that should be reported.
+
+```
+[]
+```

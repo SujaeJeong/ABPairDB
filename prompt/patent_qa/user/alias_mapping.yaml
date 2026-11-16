@@ -1,0 +1,29 @@
+_type: "prompt"
+template: |
+  # Task
+  Perform antibody alias mapping: determine which candidate antibody name is the correct alias of the query antibody name.
+
+  ## Output Format
+  Return a JSON object enclosed in triple back-ticks (```), using these keys exactly:
+
+  - `query`    : the unknown antibody query name as given  
+  - `matched_antibody` : the best matching candidate name, or `null` if no confident alias mapping can be made  
+  - `justification`  : a short explanation of the reasoning
+
+  ---
+  # Let's do our task
+
+  ## Query Antibody Name
+  {query}
+
+  ## Candidate Antibody Names
+  {candidate_list}
+
+  ## Context
+  {context}
+
+  ## Output
+input_variables:
+  - query
+  - candidate_list
+  - context

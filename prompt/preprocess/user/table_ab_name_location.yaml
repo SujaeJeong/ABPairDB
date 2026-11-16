@@ -1,0 +1,12 @@
+_type: "prompt"
+template: |
+  Analyze the structure of the following HTML table and follow the step-by-step instructions to identify the relationship between antibody name(s) and SEQ ID NO(s), only if the table describes antibody sequence data.
+  ---
+
+  # HTML Table
+  {table_chunk}
+
+  ---
+
+  # Answer:
+input_variables: ['table_chunk']

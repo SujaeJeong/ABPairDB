@@ -1,0 +1,38 @@
+_type: "prompt"
+template: |
+  Read the context and identify the pairs of antibodies and antigens from the provided antigen list and antibody list.
+  Extract antibody - antigen pairs based on the given context. 
+
+  In the antigen list, all antigens from the patents are given with their antigen index, name, organism, SEQ ID NO, state, complex information, and mutation information. 
+  While the antigens share some common properties, they also differ in specific ways. 
+  Clearly distinguish these differences so you can accurately determine which antigen is involved in each pair. 
+  When you report an antigen, include its `ag_idx` (antigen index).
+
+  In the antibody list, partial antibody information is provided, including each SEQ ID NO of antibody’s components. 
+  Again, clearly distinguish any differences so you can accurately determine which antibody is involved in each pair. 
+  When you report an antibody, include its `ab_name`.
+
+  In the context, there are multiple antibody - antigen pairs. 
+  Report each pair in a dictionary and summarize all pair information into a list of dictionaries. 
+
+  ## Output Format
+  Report the results in **JSON FORMAT**. If an antigen binds to multiple antibodies, create a list of dictionaries (one dictionary per binding). Each dictionary must include:
+    - `ag_idx`: The antigen index (`ag_idx`) from the antigen list that matches the binding.
+    - `heavy_seq_id_no`: The SEQ ID NO of the antibody heavy chain.
+    - `light_seq_id_no`: The SEQ ID NO of the antibody light chain.
+    - `reference`: Extract the "**data-index**" attribute values from the `<chunk>` tag in the provided context. If multiple references exist, list all values separated by a semicolon (`;`).
+    - `reason`: Provide the reasoning that supports the antibody-antigen binding claim, based on the **references** extracted.
+
+  ---
+
+  ## Context:
+  {context}
+
+  ## Antigen:
+  {antigen}
+
+  ## Antibodies:
+  {antibody}
+
+  ## Answer:
+input_variables: ['keyword', 'antigen', 'antibody']

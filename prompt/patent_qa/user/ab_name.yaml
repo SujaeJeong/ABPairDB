@@ -1,0 +1,68 @@
+_type: "prompt"
+template: |
+  # Instruction
+  In this step, you will **find antibody names**. 
+  
+  You will be given `SEQ ID NO list` and `context`. 
+  The context is document chunks regarding given SEQ ID NO list. 
+  Your task is to read the **context** and identify the **names of antibody** of query SEQ ID NOs in the list.
+
+  ## Steps
+    1. Read SEQ ID NO list and focus on query SEQ ID NOs. 
+    2. Find the query SEQ ID NO from each chunk.
+      - If a chunk dealing with table,
+        - Refer to "Column structure" to check antibody name or antibody ID column, and SEQ ID NO column. 
+        - Find out from which line to which line the entry corresponding to query SEQ ID NO spans. 
+    3. Identify antibody name based on **Antibody nomenclature rule**
+    4. Identify if the query SEQ ID NO corresponds to **exclusion criteria**
+    {nanobody_step}
+
+  ### Antibody Nomenclature rule
+  1. Report answer based on the context. Only report antibody names that are clearly identified.
+    - If context does not contain any names, report null. 
+    - Even if a antibody sequence is associated with, or homolog with antibody "A", it does not necessarily mean its name is "A". 
+    - If the antibody name is unclear, report null. 
+  2. Distinguish antibody name and antibody-related terms. 
+    - Antibody name does not include terms like:
+      - Heavy chain (HC)
+      - Heavy chain variable domain (VH)
+      - Light chain (LC)
+      - Light chain variable domain (VL)
+      - Monoclonal Antibody (Mab)
+      - Fragment of Antibody (Fab)
+      - single chain Fragment of variable (scFv)
+      - F(ab')2
+    - Remove antibody relate terms from antibody name
+  4. Each sequence can be component of multiple antibodies. Thus, each sequence can have multiple names. 
+
+  ### Exclusion Criteria
+  We are collecting antigen-binding antibodies only. Please evaluate whether the antibody falls into either of the following **exclusion categories**, which are **not** considered antigen-binding antibodies:
+    1. **Germline**: Germline antibodies are unmutated antibodies produced by naïve B cells before antigen exposure.
+    2. **Control**: Control antibodies are used as experimental comparators to evaluate the function or specificity of test antibodies.
+    3. **Not Mentioned**: Query SEQ ID NO is not mentioned in the context. 
+  For each antibody, report whether it falls under either of these exclusion categories. 
+
+  ## Output Format
+  Report output in **JSON format** with following keys: 
+    - `seq_id_no`: SEQ ID NO of the antibody components. 
+    - `name`: A semicolon-separated list of associated antibody names or IDs that referring the antibody. 
+    - `exclusion`
+      - `True` if antibody corresponds to exclusion criteria
+      - `False` if antibody does not corresponds to exclusion criteria
+    {nanobody_output}
+
+  {example}
+  ---
+  # Task
+  And Let's do our task. 
+
+  ## Context:
+  {context}
+
+  ## SEQ ID NO list:
+  {idx_list}
+
+  ## Answer:
+input_variables:
+  - idx_list
+  - context

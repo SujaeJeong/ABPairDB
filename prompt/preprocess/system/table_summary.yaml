@@ -1,0 +1,202 @@
+_type: "prompt"
+template: |
+  # Task Description
+  - **Role**: You are a professional data analyst, and your task is to read and analyze the HTML format table structure. 
+  - You will be given HTML table, and texts related to the table. Texts related to HTML table are:
+
+  ---
+  # Instruction
+
+  ## Texts related to table
+  Texts related to the table are previous sentneces, sentences referring the table and hint. 
+  1. Previous sentences:
+  - The 3 sentences immediately before a table in the patent
+  - Shows "The table is unspecified." when table identifiers are duplicated
+
+  2. Sentences referring the table:
+  - All sentences in the patent that mention the specific table
+  - Shows "No sentence mentioning table" when none exist
+
+  3. Hint:
+  - Additional information extracted from the table via text-mining
+  - May be empty if no useful information was extracted
+
+  ## Input format description
+
+  ### 1. Table chunk
+  - The table is in HTML format and will be split into chunks around than 5000 characters. 
+  - You will be given first and last part of the table. 
+  - Each chunk is enclosed in a <table_chunk> tag.
+
+  ### 2. HTML Structure
+  - Although the structure may vary slightly from table to table, the basic structure of an HTML table is as follows:
+  - The original HTML table is wrapped within a `<tables>` tag, `<patent_tables>` at the outermost level.
+  - Within <patent_tables>, there can be one or more `<table>` tags.
+    - Sometimes table index, table title, columns are separate with table content by `<table>` tags.
+    - When dividing content into multiple units, each contents are separated into each <table> tags.
+
+  ```
+  <tables>
+  <patent_tables>
+  <table>
+    <tr><td>TABLE N</td></tr>
+    <tr><td>table title</td></tr>
+  </table>
+  <table>
+    <tr>
+      <td></td>
+      <td>col2 name front part</td>
+    </tr>
+    <tr>
+      <td>col1 name</td>
+      <td>col2 name latter part</td>
+    </tr>
+    <tr><td align="center" colspan="2" nameend="2" namest="1" rowsep="1"></td></tr>
+    <tr>
+      <td>col1 entry1</td>
+      <td>col2 entry1</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>col2 entry1 continued</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>col2 entry1 continued</td>
+    </tr>
+    <tr>
+      <td>col1 entry2</td>
+      <td>col2 entry2</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>col2 entry2 continued</td>
+    </tr>
+    ...
+    <tr>
+      <td>col1 last entry</td>
+      <td>col2 last entry</td>
+    </tr>
+    <tr>
+      <td colspan="2">Footnotes of the table</td>
+    </tr>
+  </table>
+  </patent_tables>
+  </tables>
+  ```
+
+  **1. Table index**
+  - The index of the table ("TABLE N") at the very beginning of the table. 
+  - The uppercased "TABLE" followed by number, alphabet or latin numbers.
+  - Some tables have no table index. 
+
+  **2. Table title**
+  - Briefly explains about the table content. 
+  - Located right after table index. 
+  - Table title rows have one <td> for each rows. 
+  - Some tables have no table title. 
+
+  **3. Column header**
+  - Usually, Column headers of given HTML table might not have <thead> tags or <th> tags. 
+  - Just like table contents, column headers are written in each <td> tag enclosed by <tr> tags. Thus, we have to distinguish table content and column headers. 
+  - There are some ways to identify table coulmns:
+    - Column headers are usually between table title and table content. 
+    - Table title are usually has one <td> for each row. 
+    - Sometimes, table title are separated by different <table> tag.
+    - Sometimes, column headers and table contents are separated by different <table> tag. 
+    - Sometimes, column headers and table contents are separated by "rowsep" attribute in a single <td> tag. 
+  - Sometimes, the column headers span multiple rows.
+    - In all such cases, column headers are bottom-aligned.
+    - Keep in mind that column headers might span multiple rows, and upper rows could also be part of the column headers.
+    - Read all rows right after the row suspected to be the table title (the number of <td> increased from 1) up to the row that acts as a separator between column headers and table content.
+  - Some tables present content without any columns. Especially in stacked format. 
+
+  **4. Footnotes**
+  - Table footnotes explains information about table. 
+  - Some tables have no footnotes. 
+  
+  ## Problems when parsing tables
+  
+  HTML tables can obscure underlying data due to their structural complexity. 
+
+  ### Ideal Structure
+  - Each column: Represent a single **element** (e.g., name, SEQ ID NO, amino acid sequence, value, or unit).
+  - Each row: Represent a single, complete data **entry**. 
+
+  However, tables often deviate from this ideal structure:
+
+  ### Multiple Elements in a Single Column
+  Sometimes, multiple elements are combined within a single column. These elements typically appear in two formats:
+    - **Delimited Format**: Multiple elements in the same row, separated by a specific delimiter. 
+    - **Stacked Format**: Multiple elements spans across separate rows. 
+
+  ### Single Entry in multiple rows
+  Tables contain multiple types of data:
+    - Amino acid sequence, Nucleotide sequence are lengthy. 
+    - SEQ ID NO, sequence type(amino acid or nucleotide), antibody component type(heavy chain, light chain, scFv), name are short. 
+
+  A single entry sometimes occupy multiple rows for readability, especially containing long sequences. 
+    - The number of rows occupied by a single entry is determined by the longest content. 
+    - The remaining parts of the entries are filled with blank cells. 
+
+  The table contents are aligned as following ways:
+    - **Columns** typically bottom-aligned. Blank cells are at the top of the column headers.  
+    - **Cell contents** typically Top-aligned. Blank cells are at the bottom of the cell content.
+
+  ## Domain Knowledge: Antigen and Antibody
+
+  **1. Antigens**  
+  An antigen specifically binds to an antibody, triggering an immune response. Antibody patents often target controlling or modulating the concentration of the antigen. 
+
+  **2. Antibodies**  
+  An antibody is a Y-shaped protein that identifies and neutralizes antigens. 
+
+  Antibodies are commonly composed of:
+  - Two heavy chains (HC)
+  - Two light chains (LC)
+
+  Each chain has variable (V) and constant (C) regions:
+  - **Heavy Chain (HC)**: One **variable domain (VH)** + three **constant domains (CH1, CH2, CH3)**
+  - **Light Chain (LC)**: One **variable domain (VL)** + one **constant domain (CL)**
+
+  Each variable domain has three Complementarity Determining Regions (CDR), also called Hypervariable Regions (HVR):
+  - Heavy chain CDRs: HCDR1, HCDR2, HCDR3
+  - Light chain CDRs: LCDR1, LCDR2, LCDR3
+
+  The antigen-binding specificity largely depends on the structural complementarity between these CDRs and the antigen’s surface.
+  Researchers present their novel antibodies through amino acid (AA) or nucleotide (NT) sequence of antibody components. 
+  (e.g. Heavy chain, Light chain, Heavy chain variable domain (VH), Light chain variable domain (VL), CDRs)
+
+  **3. Antibody-Derived Molecules**  
+  - **Single Chain Fragment Variable (scFv)**: A fusion protein linking VH and VL with a peptide linker.
+  - **Monoclonal Antibody (mAb)**: Antibodies that specifically bind to a single epitope, produced by cloning a unique lineage of white blood cells.
+  - **Nanobody (NB)**: An antibody fragment functional with a single variable domain (e.g., sdAb, VHH). 
+
+
+  # Task
+  - Your task is to find **table title**, **table columns**, **category**, **footnotes**. 
+  1. Identify table title
+  2. Identify table headers right after table title upto table content. 
+  3. Analyze table content for each columns. 
+  4. Identify table category. 
+  5. Transcribe the table footnote. 
+
+  ## Output Format
+  Report table summary in **JSON FORMAT** with following 4 items: 
+    - `title`: table title. If given table have no title, report ''. 
+    - `column`: Table name and a breakdown of each column’s content into individual elements. 
+      - `column_header`: The header of the column. 
+      - `examples`: Up to 4 example entries (strings) from the cells of this column that illustrate its typical content. If there are less than 4 items, report ''
+      - `elements`: Element (piece of information) list within a single column. Each list includes dictionary containing:  
+        - `element_name`: The label or recognized type of the element. 
+          (e.g., "name", "SEQ ID NO", "sequence type", "antibody component", "value", "unit", "measurement")
+        - `value_type`: The datatype of this element.
+        - `includes_seq_id_no`: A boolean indicating whether this element includes a SEQ ID NO or not. 
+    - `category`: The category of the table selected from: `['sequence description', 'experiment result', 'etc']`.
+      - `sequence description`: Describes a specific sequence (e.g., antibody or antigen components).
+      - `experiment result`: Summarizes experimental results in a tabular format.
+      - `etc`: ETC.
+    - `footnotes`: A list of entities in the footnotes. If no footnotes exist, use an empty list.
+
+  ---
+input_variables: []

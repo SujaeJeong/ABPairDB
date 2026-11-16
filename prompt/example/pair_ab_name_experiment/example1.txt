@@ -1,0 +1,100 @@
+## Example 1
+
+### Context:
+```
+<chunk data-index=39>
+=== TABLE 2 Binding Affinity and IC50 result on Human and Mouse CCR4 ===
+
+Headings:
+  Heading 3: Description
+  Heading 4: DETAILED DESCRIPTION OF THE INVETION
+  Heading 5: Example 2: Binding Affinity 
+
+Column Structure:
+  Column 1: Ab ID
+  - Element 1: Antibody name (string)
+  Column 2: Human CCR4 KD (nM)
+  - Element 1: binding affinity (float)
+  Column 3: Human CCR4 IC50 (ng/mL)
+  - Element 1: IC50 (float)
+  Column 4: Mouse CCR4 KD (nM)
+  - Element 1: binding affinity (float)
+  Column 5: Mouse CCR4 IC50 (ng/mL)
+  - Element 1: IC50 (float)
+
+Footnotes:
+  - n.b. = non-binding
+  - n.d. = not determined
+
+Page_content:
+<tables id="TABLE-US-00004", num="00004"><patent-tables colsep="0", frame="none", rowsep="0"><table class="description-table" cols="5" colsep="0"><thead><tr><td colspan="5" nameend="4" namest="offset">TABLE 2</td></tr><tr><td colspan="5" nameend="4" namest="offset">Binding Affinity and IC50 result of IgG antibody on Human and Mouse CCR4</td></tr></thead></table><table><tr><td>Ab ID</td><td>Human CCR4 KD (nM)</td><td>Human CCR4 IC50 (ng/mL)</td><td>Mouse CCR4 KD (nM)</td><td> Mouse CCR4 IC50 (ng/mL)</td></tr><tr><td colspan="5" rowsep="1"></td></tr><tr><td>mAb 1</td><td>2.19</td><td>n.d.</td><td>2.88</td><td>13.21</td></tr><tr><td>mAb 2</td><td>17.22</td><td>4.32</td><td>5.59</td><td>1.07</td></tr></chunk>
+```  
+
+### Antigen:
+ag_idx: **0**, Human CC chemokine receptor type 4 (CCR4; CD194), **SEQ ID NO: 1**
+ag_idx: **1**, Mouse CC chemokine receptor type 4 (CCR4; CD194), **SEQ ID NO: 3**
+
+### Antibodies:
+0. Name: '1' variable heavy chain domain (VH) SEQ ID NO: 6, variable light chain domain (VL) SEQ ID NO: 5
+
+### Answer:
+
+Chunk 39 contains binding affinity experiments between antibodies and antigens.
+Table 2 presents binding affinity and IC50 values between antibodies and CCR4.
+The first column lists the antibody IDs.
+The second column shows the KD values between Human CCR4 and the antibodies, with the unit in nM.
+The third column shows the IC50 values between Human CCR4 and the antibodies, with the unit in ng/mL.
+The fourth column shows the KD values between Mouse CCR4 and the antibodies, with the unit in nM.
+The fifth column shows the IC50 values between Mouse CCR4 and the antibodies, with the unit in ng/mL.
+
+The table includes binding affinity values between antibody "1" and both Human and Mouse CCR4 antigens. 
+It is located in 3rd row in <table> tag. 
+
+```
+[
+  {
+    "ag_idx": 0,
+    "ab_name": "1",
+    "measurement": "KD",
+    "value": 2.19,
+    "unit": "nM",
+    "approximate value": false,
+    "reference": "39",
+    "antibody_format": "IgG",
+    "experiment_summary": ""
+  },
+  {
+    "ag_idx": 0,
+    "ab_name": "1",
+    "measurement": "IC50",
+    "value": "n.d.",
+    "unit": "ng/mL",
+    "approximate value": false,
+    "reference": "39",
+    "antibody_format": "IgG",
+    "experiment_summary": ""
+  },
+  {
+    "ag_idx": 1,
+    "ab_name": "1",
+    "measurement": "KD",
+    "value": 2.88,
+    "unit": "nM",
+    "approximate value": false,
+    "reference": "39",
+    "antibody_format": "IgG",
+    "experiment_summary": ""
+  },
+  {
+    "ag_idx": 1,
+    "ab_name": "1",
+    "measurement": "IC50",
+    "value": 13.21,
+    "unit": "ng/mL",
+    "approximate value": false,
+    "reference": "39",
+    "antibody_format": "IgG",
+    "experiment_summary": ""
+  }
+]
+```

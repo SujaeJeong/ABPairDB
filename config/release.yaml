@@ -1,0 +1,149 @@
+preprocess:
+  table_chunk:
+    chunk_size: 6144
+    chunk_overlap: 2048
+    separator:
+      - <entry
+      - <tr
+  table_summary:
+    model_name: gpt-4.1
+    temperature: 0.0
+    batch_size: 4
+    # The manuscript execution path did not load table-summary examples.
+    few_shot: 0
+  ab_name_location:
+    model_name: gpt-4.1
+    temperature: 0.0
+  load_document:
+    similarity_threshold: 0.3
+    context_window: 50
+    verbose: false
+    print_level: 0
+    exclude_words:
+      - .sub.
+      - .sup.
+  split_docs:
+    chunk_size: 4096
+    chunk_overlap: 2048
+  check_entity:
+    threshold: 20
+  combine_metadata:
+    meta_keys:
+      - Heading 3
+      - Heading 4
+      - Heading 5
+      - SEQ_ID_NO
+      - index
+      - title
+      - category
+
+protein_category:
+  # Provenance for the supplied chain-classification artifacts. Classification
+  # itself is performed before the public extraction command.
+  artifact_parameters:
+    cutoff_Fv: 160
+    cutoff_scFv: 330
+  select_eps:
+    min_eps: 5
+
+# The public CLI replaces these null values with paths under --input-dir and
+# the repository root. They intentionally contain no laboratory filesystem
+# paths or trial names.
+io:
+  html: null
+  base_dir: null
+  example: prompt/example
+  prompt: prompt
+  valset: null
+  input_state: null
+  output_state: null
+  ref_csv_path: null
+  anarcii: null
+
+qa:
+  assistant:
+    model:
+      model_name: gpt-4.1-2025-04-14
+      temperature: 0.0
+    embedding:
+      embedding_model_name: text-embedding-3-large
+    dirs:
+      embedding: .abpairdb-work/vectorstore
+      prompt: prompt
+      example: prompt/example
+      output: .abpairdb-work
+  summary:
+    search_type: mmr
+    search_kwargs:
+      k: 50
+      fetch_k: 16
+      lambda_mult: 0.5
+  ag:
+    search_type: mmr
+    search_kwargs:
+      k: 50
+      fetch_k: 10
+      lambda_mult: 0.5
+  ag_detail:
+    search_type: similarity
+    search_kwargs:
+      k: 50
+      fetch_k: 15
+    max_group_size: 5
+    top_n: 6
+    mmr_out: 4
+  ag_main:
+    search_type: mmr
+    search_kwargs:
+      k: 50
+      fetch_k: 12
+      lambda_mult: 0.5
+  ag_accession:
+    search_type: similarity
+    search_kwargs:
+      k: 10
+      fetch_k: 7
+      lambda_mult: 0.5
+    top_n: 3
+  ab_name:
+    search_type: similarity
+    search_kwargs:
+      k: 50
+      fetch_k: 24
+    max_group_size: 4
+    top_n: 5
+    mmr_out: 5
+    bm25_weights: 0.8
+  ab_name_duplicated:
+    search_type: similarity
+    search_kwargs:
+      k: 50
+      fetch_k: 24
+    max_group_size: 5
+    top_n: 7
+    mmr_out: 5
+  ab_pair_unnamed:
+    search_type: similarity
+    search_kwargs:
+      k: 48
+      fetch_k: 24
+    max_group_size: 4
+    top_n: 6
+    mmr_out: 6
+  experiment_summary:
+    batch_size: 4
+  pair_ab_name:
+    system_prompt_file: pair_ab_name.yaml
+    search_type: similarity
+    top_n: 7
+    mmr_out: 4
+    max_group_size: 3
+  pair_ab_name_experiment:
+    top_n: 4
+    mmr_out: 4
+    max_group_size: 3
+  pair_ab_unnamed:
+    system_prompt_file: pair_ab_unnamed.yaml
+    max_group_size: 3
+    top_n: 7
+    mmr_out: 4

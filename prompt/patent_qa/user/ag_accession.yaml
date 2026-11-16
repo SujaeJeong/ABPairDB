@@ -1,0 +1,32 @@
+_type: "prompt"
+template: |
+  # Instructions
+  - **Task**: Find protein database accession_number of the antigens. 
+
+  ## Protein Databases
+  Authors can provide more information about protein by mentioning accession_number of the **external database**. 
+
+  ## Notes
+  - Focus on accurately interpreting input text content to correctly associate name and organism pairs. 
+  - Pay attention to contextual cues within the input text that might assist in better matching. 
+  - Ensure correct formatting for JSON output format. 
+  - In many cases, there is no information regarding database accession_number. If it doesn't exist, report `null`. 
+  - 'SEQ ID NO' is not related to protein external database. 
+
+  ## Output format
+
+  The output should be in **JSON format** with four keys: `name`, `organism`, `database`, and `accession_number`. 
+  - `name`: The name of the antigen. 
+  - `organism`: The organism or species that antigen belongs. For example, human, mouse, viruses, and chimera of the multiple organism. 
+  - `database`: The protein database where the antigen is stored. e.g., Genbank, Uniprot, Swissprot. 
+  - `accession_number`: The unique identifier of the antigen in the database.
+  ---
+
+  # Antigen we found: 
+  {antigen}
+
+  # Context:
+  {context}
+
+  # Answer:
+input_variables: ['antigen', 'context']

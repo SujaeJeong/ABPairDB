@@ -1,0 +1,79 @@
+## Example 4: Find Antibody name from table. Multiple Elements in a Single Column. 
+
+### Hint from text-mining:
+The table has maximum 2 columns in each rows. 
+And there are 1 types of antibody components in the table. 
+- light chain (LC) SEQ ID NO column located in coulmn 1. 
+
+### Context
+```
+Chunk info:
+
+Headings:
+  Heading 3: Description
+  Heading 4: SEQUENCE LISTING
+  Heading 5:
+
+<SEQ_ID_NO>[49, 50]</SEQ_ID_NO>
+Columns:
+  Column 1: 
+  - Element 1: Antibody Name (string)
+  - Element 2: Antibody component (string)
+  - Element 3: SEQ ID NO (integer)
+  - Element 4: Amino acid sequence (sequence)
+    - Includes SEQ ID NO
+  Column 2:
+
+SEQ ID NO LIST:
+- light chain (LC): SEQ ID NO: 49, SEQ ID NO: 50
+
+Notes:
+- Antibody or antigen name located in the header
+
+---
+Page content:
+<tr><td>SEQ ID NO: 49</td><td> </td></tr><tr><td>VSSRFFTLTISSLQPDDFATYYCLSCRASQSVSYLQMDRLTAE</td></tr><tr><td>VSSRFFTLTISSLQPDDFATSQTISGWAE</td></tr><tr><td></td><td> </td></tr></entry><entry><tr><td>CDM 92_22</td></tr><tr><td>Light chain (LC)</td></tr><tr><td>SEQ ID NO: 50</td><td> </td></tr><tr><td>EIVLTQSPTLSPGQRATNQKPSGSGSGTERLLIYDTSKRATGT</td></tr>
+```
+
+### SEQ ID NO list
+[49, 50, 51, 52]
+
+### Answer
+From the Chunk info, we can check antibody name and SEQ ID NO are all in the first column of the chunk. 
+
+Among the SEQ ID NO list we are looking for, SEQ ID NOs: 49 and 50 are referred in the given chunk.
+
+**For SEQ ID NO: 49**,
+  - The entry corresponds to SEQ ID NO: 49 is as below:
+    ```
+    <tr><td>SEQ ID NO: 49</td><td></td></tr></entry>
+    ```
+  - However, the table chunk begins partway through an `<entry>` (the part that should contain the antibody name is presumably in a prior chunk). After SEQ ID NO: 49, we only see amino acid sequences. No antibody name or component information appears before the mention of SEQ ID NO: 49 in this chunk.
+  - Thus, we **cannot determine** the antibody name for SEQ ID NO: 49 from the visible data.
+  - Therefore, its name is recorded as `null`.
+
+**For SEQ ID NO: 50**
+  - The entry corresponds to SEQ ID NO: 50 is as below:
+    ```
+    <entry><tr><td>CDM 92_22</td></tr><tr><td>Light chain (LC)</td></tr><tr><td>SEQ ID NO: 50</td><td></td></tr><tr><td>EIVLTQSPTLSPGQRA...</td></tr></entry>
+    ```
+  - Here, the antibody name is **“CDM 92_22”**, the component category is **“Light chain (LC)”**, and the **SEQ ID NO** is **50**.
+  - Hence, for SEQ ID NO: 50, the antibody’s name is **“CDM 92_22”**.
+
+---
+To report answer in **JSON format**, the answer is, 
+
+```json
+[
+  {{
+      "seq_id_no": 49,
+      "name": null,
+      "exclusion": false
+  }},
+  {{
+      "seq_id_no": 50,
+      "name": CDM 92_22,
+      "exclusion": false
+  }}
+]
+```
