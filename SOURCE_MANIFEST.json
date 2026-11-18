@@ -578,19 +578,19 @@
     },
     {
       "path": "prompt/preprocess/system/table_ab_name_location.yaml",
-      "bytes": 3203,
-      "sha256": "881da0321427217aad4a5d48702435329048878396a63e7aa3550353c5133770",
+      "bytes": 3200,
+      "sha256": "8a89bec5c53d1f0264a358278e231fa1e85e56f675a5a6d8ad4804a4438b7051",
       "origin": "selected_software_candidate",
       "source_sha256": "881da0321427217aad4a5d48702435329048878396a63e7aa3550353c5133770",
-      "byte_identical_to_source": true
+      "byte_identical_to_source": false
     },
     {
       "path": "prompt/preprocess/system/table_summary.yaml",
-      "bytes": 9152,
-      "sha256": "6bef85b7dd75369041957f649839d4b1ff1fe633c8fc584031dc3eb72e2baa17",
+      "bytes": 9181,
+      "sha256": "414dfa2fed3535412911f42219893f54f7103059441a5bd6224b158732020497",
       "origin": "selected_software_candidate",
       "source_sha256": "6bef85b7dd75369041957f649839d4b1ff1fe633c8fc584031dc3eb72e2baa17",
-      "byte_identical_to_source": true
+      "byte_identical_to_source": false
     },
     {
       "path": "prompt/preprocess/table_summary_multilev_user.txt",
@@ -680,7 +680,7 @@
     "manuscript_metrics": "not_reproduced",
     "full_mapping_and_curation_rebuild": "not_packaged"
   },
-  "updated_at_utc": "2026-11-18T15:51:41.185301+00:00",
+  "updated_at_utc": "2026-11-18T16:07:30.619225+00:00",
   "repository_url": "https://github.com/SujaeJeong/ABPairDB",
   "antigen_output_validation": {
     "mode": "offline_without_model_calls",

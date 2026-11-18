@@ -65,7 +65,7 @@ template: |
   ## Output Format
   Report output in **JSON format** with following keys:
     - `name_location`: location of the antibody name in the table
-    - `seq_id_no_location`: location of the antibody name in the table
+    - `seq_id_no_location`: location of the SEQ ID NO in the table
     - `relative_location`: relative location between antibody name and SEQ ID NO
     - `explanation`: Brief explanation of how you determined your answer
 input_variables: []

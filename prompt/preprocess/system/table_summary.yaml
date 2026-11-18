@@ -184,7 +184,7 @@ template: |
   ## Output Format
   Report table summary in **JSON FORMAT** with following 4 items: 
     - `title`: table title. If given table have no title, report ''. 
-    - `column`: Table name and a breakdown of each column’s content into individual elements. 
+    - `columns`: A list of columns, each with its header, examples, and a breakdown of its content into individual elements.
       - `column_header`: The header of the column. 
       - `examples`: Up to 4 example entries (strings) from the cells of this column that illustrate its typical content. If there are less than 4 items, report ''
       - `elements`: Element (piece of information) list within a single column. Each list includes dictionary containing:  
