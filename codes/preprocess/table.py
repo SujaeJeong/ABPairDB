@@ -104,19 +104,19 @@ class TableCrawlNode(BaseNode):
         for table in tables:
             # 1. convert docbook_table_to_html
             table = self.convert_docbook_table_to_html(table)
-            # 1. Remove description-tr, description-td class
+            # Remove only the designated class; preserve all other classes.
             for tr in table.find_all('tr'):
                 if tr.has_attr('class'):
-                    tr['class'].remove('description-tr')
+                    tr['class'] = [name for name in tr['class'] if name != 'description-tr']
                     if not tr.get('class', []):
                         del tr['class']
             for td in table.find_all('td'):
                 if td.has_attr('class'):
-                    td['class'].remove('description-td')
+                    td['class'] = [name for name in td['class'] if name != 'description-td']
                     if not td.get('class', []):
                         del td['class']
             if table.has_attr('class'):
-                table['class'].remove('description-table')
+                table['class'] = [name for name in table['class'] if name != 'description-table']
                 if not table.get('class', []):
                     del table['class']
 

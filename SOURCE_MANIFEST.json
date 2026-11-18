@@ -132,11 +132,11 @@
     },
     {
       "path": "codes/preprocess/table.py",
-      "bytes": 37700,
-      "sha256": "5ffb171895d9e21dcfb3ba73b8c0503c56663275dfd725fef809bb0b947d8244",
+      "bytes": 37826,
+      "sha256": "f9ab55f6a199aba9a930c68f54cf4579703ac566c19564335727a99d9061de66",
       "origin": "selected_software_candidate",
       "source_sha256": "5ffb171895d9e21dcfb3ba73b8c0503c56663275dfd725fef809bb0b947d8244",
-      "byte_identical_to_source": true
+      "byte_identical_to_source": false
     },
     {
       "path": "codes/rag/__init__.py",
@@ -643,6 +643,12 @@
       "origin": "release_regression_test",
       "bytes": 6864,
       "sha256": "e98271681d45061012a170f8685a658b52d155b09dbf6ae4480f6531b5be278e"
+    },
+    {
+      "path": "tests/test_table_classes.py",
+      "origin": "release_regression_test",
+      "bytes": 3274,
+      "sha256": "f6be8500271448489e8ba7a70b88367601c2d7a990f371aa8cf0b7e6715963d8"
     }
   ],
   "excluded": [
@@ -668,7 +674,7 @@
     "manuscript_metrics": "not_reproduced",
     "full_mapping_and_curation_rebuild": "not_packaged"
   },
-  "updated_at_utc": "2026-11-18T15:22:54.121494+00:00",
+  "updated_at_utc": "2026-11-18T15:43:58.319260+00:00",
   "repository_url": "https://github.com/SujaeJeong/ABPairDB",
   "antigen_output_validation": {
     "mode": "offline_without_model_calls",
@@ -687,6 +693,14 @@
     },
     "legacy_nonempty_public_export": "rejected_without_ag_out_marker",
     "invalid_model_reference_policy": "filter_and_report_before_integer_cast",
+    "live_extraction": "not_run"
+  },
+  "table_class_validation": {
+    "mode": "offline_without_network_or_model_calls",
+    "test_command": "python -m unittest discover -s tests -p 'test_table_classes.py'",
+    "regression_tests": "passed_2_unittest_methods_with_21_class_subcases",
+    "policy": "remove_exact_designated_class_for_tr_td_tables_preserve_other_classes_and_content",
+    "docbook_conversion": "passed",
     "live_extraction": "not_run"
   }
 }
