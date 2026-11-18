@@ -73,6 +73,11 @@ python scripts/run_extraction.py \
 
 The .env.example file lists the variable; the CLI expects it in the process
 environment. See [Output schema](docs/output_schema.md).
+The antigen output retains detailed rows in order. Experiment prompts,
+measurement indices, and JSON references all use the final `ag_out` index
+starting at zero. Invalid model indices are filtered and counted in
+`measurement_index_validation`. Offline regression checks can be run with
+`python -m unittest discover -s tests -p 'test_*antigen*.py'`.
 The configuration records GPT-4.1 extraction, text-embedding-3-large embeddings,
 FAISS/BM25 retrieval, and BAAI/bge-reranker-base reranking. These are snapshot
 settings, not a guarantee of current hosted-model availability.

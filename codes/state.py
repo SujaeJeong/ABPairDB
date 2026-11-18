@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, constr
 from typing import Annotated, List, Dict, Annotated, TypedDict, Literal, Union
+import numpy as np
 import pandas as pd # type: ignore
 from langchain_core.documents import Document # type: ignore
 
@@ -149,3 +150,24 @@ class QAState(State):
     question: Annotated[str, "question for the task"]
     idx_dict: Annotated[Dict[str, List[int]], "categorized SEQ ID NO dictionary"]
     entities: Annotated[Dict[str, bool], "Entities to check in document"]
+
+def validate_ag_out_index(ag_out):
+    """Do not silently renumber an antigen table already used by measurements."""
+    if not ag_out.index.equals(pd.RangeIndex(len(ag_out))):
+        raise ValueError('ag_out must have consecutive indices starting at 0')
+
+
+def filter_antigen_indices(frame, ag_out):
+    """Filter model labels before generic integer parsing can truncate them."""
+    validate_ag_out_index(ag_out)
+    labels = frame.get('ag_idx', pd.Series(pd.NA, index=frame.index, dtype='object'))
+    numbers = pd.to_numeric(labels, errors='coerce')
+    keep = numbers.isin(ag_out.index) & ~labels.map(lambda x: isinstance(x, (bool, np.bool_)))
+    result = frame.loc[keep].copy()
+    result['ag_idx'] = numbers.loc[keep].astype('int64')
+    audit = {
+        'input_rows': len(frame),
+        'excluded_rows': int((~keep).sum()),
+        'excluded_indices': [str(value) for value in labels.loc[~keep]],
+    }
+    return result, audit

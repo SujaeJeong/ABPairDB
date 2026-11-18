@@ -22,6 +22,8 @@ for import_path in (REPOSITORY_ROOT, REPOSITORY_ROOT / "codes"):
     if str(import_path) not in sys.path:
         sys.path.insert(0, str(import_path))
 
+from codes.state import filter_antigen_indices, validate_ag_out_index
+
 
 def _resolve_config_path(value: str | Path) -> Path:
     path = Path(value)
@@ -134,36 +136,8 @@ def _load_runtime_config(
 
 
 def _antigen_output(qa_state, ag_main_node):
-    df = qa_state["ag_main"]
-    if not df.empty:
-        df_main = df.loc[~df["seq_id_no"].isna()].copy()
-        df_detail = qa_state["ag_detail"].dropna(subset=["seq_id_no"]).copy()
-        columns = {
-            "name": str,
-            "organism": str,
-            "seq_id_no": int,
-            "abbreviation": str,
-        }
-        df_main = ag_main_node.convert_dtype(df_main, cols=columns)
-        df_detail = ag_main_node.convert_dtype(df_detail, cols=columns)
-        merged = pd.merge(
-            df_main,
-            df_detail,
-            how="inner",
-            on=["name", "organism", "seq_id_no", "abbreviation"],
-        )
-        df_out = pd.concat([merged, df.loc[df["seq_id_no"].isna()]]).reset_index(
-            drop=True
-        )
-    else:
-        df_out = pd.merge(
-            qa_state["ag"],
-            qa_state["ag_detail"],
-            how="inner",
-            on=["name", "organism", "abbreviation"],
-        )
-    df_out = ag_main_node.convert_NA(df_out, cols=list(df_out.columns))
-    return df if df_out.empty else df_out
+    df_out = ag_main_node.merge_output(qa_state)
+    return ag_main_node.convert_NA(df_out, cols=list(df_out.columns))
 
 
 def _run_pipeline(
@@ -320,16 +294,25 @@ def _flatten_pairs(pair_frames: dict[str, pd.DataFrame]) -> list[dict[str, Any]]
     return records
 
 
-def _measurement_records(qa_state) -> list[dict[str, Any]]:
-    records = []
+def _measurement_records(qa_state):
+    ag_out = qa_state["ag_out"]
+    validate_ag_out_index(ag_out)
+    records, audits = [], {}
     for source, key in (
         ("named_antibody", "pair_ab_name_experiment"),
         ("sequence_pair", "pair_no_name_experiment"),
     ):
         frame = qa_state.get(key)
         if isinstance(frame, pd.DataFrame):
+            if not frame.empty and qa_state.get(f"{key}_antigen_index_source") != "ag_out":
+                raise ValueError(f"{key}: legacy or unknown antigen index source; re-extract before export")
+            frame, audit = filter_antigen_indices(frame, ag_out)
+            audits[source] = {
+                "extraction": qa_state.get(f"{key}_antigen_index_validation"),
+                "export": audit,
+            }
             records.extend({"antibody_reference": source, **row} for row in _json_safe(frame))
-    return records
+    return records, audits
 
 
 def build_public_output(
@@ -340,6 +323,7 @@ def build_public_output(
     config: dict[str, Any],
 ) -> dict[str, Any]:
     qa_state = pipeline_state["qa"]
+    measurements, index_audits = _measurement_records(qa_state)
     try:
         public_config_path = str(config_path.relative_to(REPOSITORY_ROOT))
     except ValueError:
@@ -361,7 +345,8 @@ def build_public_output(
         "antigens": _json_safe(qa_state["ag_out"]),
         "antigen_accessions": _json_safe(qa_state.get("ag_accession", pd.DataFrame())),
         "antibody_pairs": _flatten_pairs(qa_state["ab_merged"]),
-        "measurements": _measurement_records(qa_state),
+        "measurements": measurements,
+        "measurement_index_validation": index_audits,
     }
 
 

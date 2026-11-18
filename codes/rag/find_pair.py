@@ -106,10 +106,7 @@ class PairAbNameNode(PatentQANode):
 
     def create_ag_prompt(self, df_ag):
         ag_keywords = self.create_antigen_keywords(df_ag)
-        prompt = ""
-        for ag_idx, ag_keyword in enumerate(ag_keywords):
-            line = f"ag_idx: **{ag_idx}**, {ag_keyword}\n"
-            prompt+= line
+        prompt = "\n".join(ag_keywords)
 
         return prompt
 
@@ -131,11 +128,12 @@ class PairAbNameNode(PatentQANode):
 
     def execute(self, state):
         pair_keys = ['VH_VL', 'HC_LC', 'scFv', 'FC', 'NB', 'MS']
+        index_audits = []
         result = {pair_key: [] for pair_key in pair_keys}
         raw_result = {pair_key: [] for pair_key in pair_keys}
         prompt = self.assistant.create_prompt(self.task)
 
-        df_ag = self.convert_NA(state['ag_out'], cols=list(state['ag_out'].columns))
+        df_ag = self.experiment_antigen_table(state)
         ag_prompt = self.create_ag_prompt(df_ag)
 
         for pair_key in pair_keys:
@@ -177,7 +175,8 @@ class PairAbNameNode(PatentQANode):
 
             parsed_outputs = StrOutputParser().batch(responses)
             filter_seq_id_no = {'ab_name': group_ab_names}
-            df = self.parse_answers_to_df(parsed_outputs, filter_seq_id_no=filter_seq_id_no)
+            df, audits = self.parse_antigen_response(parsed_outputs, df_ag, filter_seq_id_no=filter_seq_id_no)
+            index_audits.extend(audits)
             result[pair_key].append(df)
 
             configs = [{**config, "response": response} for config, response in zip(configs, parsed_outputs)]
@@ -188,7 +187,7 @@ class PairAbNameNode(PatentQANode):
             concat_df = pd.concat(dfs).reset_index(drop=True)
             result[pair_key] = concat_df
 
-        return {self.task: result, f"{self.task}_raw": raw_result}
+        return self.antigen_result(result, raw_result, index_audits)
 
 
 class ExperimentSummary(PatentQANode):
@@ -319,12 +318,13 @@ class PairAbNameExpNode(PatentQANode):
 
 
     def execute(self, state, doc_state) -> QAState:
+        index_audits = []
         result = []
         raw_result = []
         prompt = self.assistant.create_prompt(task=self.task, few_shot=2)
 
         # Get Antigen prompt
-        df_ag = self.convert_NA(state['ag_detail'], cols=list(state['ag_detail'].columns))
+        df_ag = self.experiment_antigen_table(state)
         ag_prompt = self.create_ag_prompt(df_ag)
 
         # Reconstruct
@@ -339,7 +339,7 @@ class PairAbNameExpNode(PatentQANode):
         df_ab['name'] = df_ab['name'].str.strip()
         ab_names = list(set(df_ab['name']))
         if not ab_names:
-            return {self.task: self.empty_df(), f"{self.task}_raw": dict()}
+            return self.antigen_result(self.empty_df(), {}, index_audits)
 
         binding_exp_dict = doc_state['binding_exp_dict']
         contexts = self.construct_context(binding_exp_dict)
@@ -371,14 +371,15 @@ class PairAbNameExpNode(PatentQANode):
         if result:
             df_out = []
             for i, response in enumerate(result):
-                df = self.parse_answers_to_df(response)
+                df, audits = self.parse_antigen_response(response, df_ag)
+                index_audits.extend(audits)
                 df['reference'] = i
                 df_out.append(df)
             df_out = pd.concat(df_out, ignore_index=True)
         else:
             df_out = self.empty_df()
 
-        return {self.task: df_out, f"{self.task}_raw": raw_result}
+        return self.antigen_result(df_out, raw_result, index_audits)
 
 
 class PairNoNameExpNode(PatentQANode):
@@ -435,12 +436,13 @@ class PairNoNameExpNode(PatentQANode):
 
 
     def execute(self, state, doc_state) -> QAState:
+        index_audits = []
         result = []
         raw_result = []
         prompt = self.assistant.create_prompt(task=self.task)
 
         # Get Antigen prompt
-        df_ag = self.convert_NA(state['ag_detail'], cols=list(state['ag_detail'].columns))
+        df_ag = self.experiment_antigen_table(state)
         ag_prompt = self.create_ag_prompt(df_ag)
 
         binding_exp_dict = {
@@ -468,14 +470,15 @@ class PairNoNameExpNode(PatentQANode):
         if result:
             df_out = []
             for i, response in enumerate(result):
-                df = self.parse_answers_to_df(response)
+                df, audits = self.parse_antigen_response(response, df_ag)
+                index_audits.extend(audits)
                 df['reference'] = i
                 df_out.append(df)
             df_out = pd.concat(df_out, ignore_index=True)
         else:
             df_out = self.empty_df()
 
-        return {self.task: df_out, f"{self.task}_raw": raw_result}
+        return self.antigen_result(df_out, raw_result, index_audits)
 
 
 class AliasMappingNode(PatentQANode):
@@ -692,10 +695,7 @@ class PairAbUnnamedNode(PatentQANode):
 
     def create_ag_prompt(self, df_ag):
         ag_keywords = self.create_antigen_keywords(df_ag)
-        prompt = ""
-        for ag_idx, ag_keyword in enumerate(ag_keywords):
-            line = f"ag_idx: **{ag_idx}**, {ag_keyword}\n"
-            prompt+= line
+        prompt = "\n".join(ag_keywords)
 
         return prompt
 
@@ -720,11 +720,12 @@ class PairAbUnnamedNode(PatentQANode):
 
     def execute(self, state: QAState) -> QAState:
         pair_keys = ['VH_VL', 'HC_LC', 'scFv', 'FC', 'NB', 'MS']
+        index_audits = []
         result = {pair_key: [] for pair_key in pair_keys}
         raw_result = {pair_key: [] for pair_key in pair_keys}
         prompt = self.assistant.create_prompt(task=self.task)
 
-        df_ag = self.convert_NA(state['ag_out'], cols=list(state['ag_out'].columns))
+        df_ag = self.experiment_antigen_table(state)
         ag_prompt = self.create_ag_prompt(df_ag)
 
         for pair_key in pair_keys:
@@ -764,7 +765,8 @@ class PairAbUnnamedNode(PatentQANode):
             responses = self.assistant.model.batch(prompts)
 
             parsed_outputs = StrOutputParser().batch(responses)
-            df = self.parse_answers_to_df(parsed_outputs)
+            df, audits = self.parse_antigen_response(parsed_outputs, df_ag)
+            index_audits.extend(audits)
 
             result[pair_key].append(df)
             configs = [{**config, "response": response} for config, response in zip(configs, parsed_outputs)]
@@ -774,4 +776,4 @@ class PairAbUnnamedNode(PatentQANode):
             df = pd.concat(data)
             result[pair_key] = df
 
-        return {self.task: result, f"{self.task}_raw": raw_result}
+        return self.antigen_result(result, raw_result, index_audits)

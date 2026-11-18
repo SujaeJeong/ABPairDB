@@ -17,8 +17,29 @@ from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
 from ..base import BaseNode
-from ..state import QAState
+from ..state import QAState, filter_antigen_indices, validate_ag_out_index
 from .utils import format_docs, remove_duplicates_by_id
+
+
+def _supplement_antigens(detail, candidates):
+    """Retain detail rows and add candidates with no exact name/organism match.
+
+    Only the key table is deduplicated; distinct detail records are never collapsed.
+    Null keys retain pandas merge semantics. No alias or spelling normalization.
+    """
+    if detail.empty:
+        return pd.concat([detail, candidates], ignore_index=True)
+    if candidates.empty:
+        return detail.reset_index(drop=True).copy()
+    # 비교용 키만 중복 제거하여 many-to-many 증식을 막고, 상세 원본 행은 모두 유지한다.
+    # abbreviation·별칭·대소문자는 정규화하지 않으며 결측 키 비교는 pandas merge 규칙을 따른다.
+    keys = ['name', 'organism']
+    matches = candidates[keys].merge(
+        detail[keys].drop_duplicates(), on=keys, how='left',
+        indicator=True, validate='many_to_one', sort=False)
+    # merge가 만든 index 대신 행 순서의 마스크를 써서 후보의 기존 index와 혼동하지 않는다.
+    additions = candidates.loc[matches['_merge'].eq('left_only').to_numpy()]
+    return pd.concat([detail, additions], ignore_index=True)
 
 
 class PatentQANode(BaseNode):
@@ -29,6 +50,43 @@ class PatentQANode(BaseNode):
 
     def empty_df(self):
         return pd.DataFrame(columns=self.cols)
+
+    def experiment_antigen_table(self, state):
+        frame = state['ag_out']
+        validate_ag_out_index(frame)
+        return self.convert_NA(frame.copy(), cols=list(frame.columns))
+
+
+    def parse_antigen_response(self, answer, ag_out, filter_seq_id_no=None):
+        answers = answer if isinstance(answer, list) else [answer]
+        filters = (
+            [dict(zip(filter_seq_id_no, values)) for values in zip(*filter_seq_id_no.values())]
+            if filter_seq_id_no else [None] * len(answers)
+        )
+        if len(filters) != len(answers):
+            raise ValueError('Response and sequence filter counts differ')
+        frames, audits = [], []
+        for text, seq_filter in zip(answers, filters):
+            raw = self.parse_answers_to_df(text, filter=False)
+            frame, audit = filter_antigen_indices(raw, ag_out)
+            frames.append(self.clean_df(frame, filter_seq_id_no=seq_filter))
+            audits.append(audit)
+        frame = pd.concat(frames, ignore_index=True) if frames else self.empty_df()
+        return frame, audits
+
+
+    def antigen_result(self, result, raw_result, audits):
+        return {
+            self.task: result,
+            f'{self.task}_raw': raw_result,
+            f'{self.task}_antigen_index_source': 'ag_out',
+            f'{self.task}_antigen_index_validation': {
+                'input_rows': sum(audit['input_rows'] for audit in audits),
+                'excluded_rows': sum(audit['excluded_rows'] for audit in audits),
+                'excluded_indices': [value for audit in audits for value in audit['excluded_indices']],
+            },
+        }
+
 
     def parse_json(self, text, pattern=r'```(?:json)?\n(.*?)```'):
         """
@@ -706,6 +764,20 @@ class AgMainNode(PatentQANode):
         self.required = ['name', 'organism']
         assistant.set_retriever(**kwargs)
         self.assistant = assistant
+
+    def merge_output(self, state):
+        """Keep all details; supplement only unmatched, unnumbered main antigens."""
+        detail = state['ag_detail'].copy()
+        main = state['ag_main'].copy()
+        # 결측을 보존하는 Int64로 통일한다. 변환 불가능한 번호는 조용히 결측으로 바꾸지 않는다.
+        for frame in (detail, main):
+            if 'seq_id_no' not in frame:
+                frame['seq_id_no'] = pd.Series(pd.NA, index=frame.index, dtype='Int64')
+            frame['seq_id_no'] = self.convert_NA(frame[['seq_id_no']].copy(), cols=['seq_id_no'])['seq_id_no']
+            frame['seq_id_no'] = pd.to_numeric(frame['seq_id_no'], errors='raise').astype('Int64')
+        # 상세에 없는 name·organism 조합의 '번호 없는 주요 항원'만 추가한다.
+        return _supplement_antigens(detail, main.loc[main['seq_id_no'].isna()])
+
 
     def create_ag_prompt(self, df_ag):
         ag_keyword = []
