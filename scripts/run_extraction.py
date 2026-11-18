@@ -76,6 +76,8 @@ def validate_prepared_input(input_dir: Path, patent_id: str) -> dict[str, Any]:
     sequences = anarcii.get("sequences") if isinstance(anarcii, dict) else None
     if not isinstance(sequences, dict):
         raise ValueError(f"{anarcii_path}: root object must contain a sequences object")
+    if not sequences:
+        raise ValueError(f"{anarcii_path}: sequences is empty; at least one sequence is required")
     for seq_id_no, record in sequences.items():
         try:
             int(seq_id_no)

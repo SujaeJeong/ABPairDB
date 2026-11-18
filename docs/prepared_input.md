@@ -35,7 +35,10 @@ patent webpage.
 ## Chain-classification JSON
 
 `anarcii/<PATENT_ID>.json` must contain a `sequences` object keyed by patent-local
-SEQ ID NO. Each record must contain at least `sequence` and `category`:
+SEQ ID NO, with at least one sequence record. Empty `sequences` objects are
+rejected by both `--validate-input` and extraction with a nonzero exit status,
+before pipeline execution or API calls. Each record must contain at least
+`sequence` and `category`:
 
 ```json
 {

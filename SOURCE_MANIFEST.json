@@ -226,11 +226,11 @@
     },
     {
       "path": "docs/prepared_input.md",
-      "bytes": 2343,
-      "sha256": "d368429aa3f01c761afdb0245459def60b03d86adf50e2a7f452f5a9d02307de",
+      "bytes": 2527,
+      "sha256": "17a852732175ac0952f7d061b0af5e6b70f4ee3fbda4d666e2dbf86b49f53246",
       "origin": "selected_software_candidate",
       "source_sha256": "d368429aa3f01c761afdb0245459def60b03d86adf50e2a7f452f5a9d02307de",
-      "byte_identical_to_source": true
+      "byte_identical_to_source": false
     },
     {
       "path": "docs/validation_schema.md",
@@ -626,8 +626,8 @@
     },
     {
       "path": "scripts/run_extraction.py",
-      "bytes": 14551,
-      "sha256": "84545df64e1e4db918956838aa41306585a05635e4dd150e3930edb15574c200",
+      "bytes": 14672,
+      "sha256": "d6630a9b5c4cda14618dbc1661cc50bfde85c8c0621ff2c626fea83ebb767ca2",
       "origin": "selected_software_candidate",
       "source_sha256": "09e8f4a2ea372bf2502c790266b1c6a3646b048b4a9f67674625d89055980718",
       "byte_identical_to_source": false
@@ -643,6 +643,12 @@
       "origin": "release_regression_test",
       "bytes": 6864,
       "sha256": "e98271681d45061012a170f8685a658b52d155b09dbf6ae4480f6531b5be278e"
+    },
+    {
+      "path": "tests/test_prepared_input.py",
+      "origin": "release_regression_test",
+      "bytes": 3866,
+      "sha256": "78600e72bec25e5fa01dea55a2ace22f2e4e242ad3c5f44337d64c1a66a2e54d"
     },
     {
       "path": "tests/test_table_classes.py",
@@ -674,7 +680,7 @@
     "manuscript_metrics": "not_reproduced",
     "full_mapping_and_curation_rebuild": "not_packaged"
   },
-  "updated_at_utc": "2026-11-18T15:43:58.319260+00:00",
+  "updated_at_utc": "2026-11-18T15:51:41.185301+00:00",
   "repository_url": "https://github.com/SujaeJeong/ABPairDB",
   "antigen_output_validation": {
     "mode": "offline_without_model_calls",
@@ -701,6 +707,16 @@
     "regression_tests": "passed_2_unittest_methods_with_21_class_subcases",
     "policy": "remove_exact_designated_class_for_tr_td_tables_preserve_other_classes_and_content",
     "docbook_conversion": "passed",
+    "live_extraction": "not_run"
+  },
+  "empty_sequence_validation": {
+    "policy": "reject_empty_sequences_before_pipeline_execution",
+    "mode": "offline_without_api_calls",
+    "targeted_tests": "passed_5_unittest_methods",
+    "release_regression_tests": "passed_27_unittest_methods",
+    "test_command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "empty_input_cli": "both_validation_and_extraction_exit_nonzero_without_output",
+    "single_sequence": "validation_and_classification_passed",
     "live_extraction": "not_run"
   }
 }
