@@ -557,17 +557,17 @@ class GatherExpDocs(BaseNode):
 
         exp_tables = self.merge_tables(exp_tables)
 
-        # collect experiment part of content
-        exp_content = ''
+        # Include the first chunk even when no adjacent chunk exists.
+        exp_content = (
+            exp_docs[0].page_content.replace('\n</chunk>', '').split('Page_content:\n')[1]
+            if exp_docs else ''
+        )
         for prev_doc, doc in zip(exp_docs[:-1], exp_docs[1:]):
 
             prev_content = prev_doc.page_content.replace('\n</chunk>', '').split('Page_content:\n')[1]
             page_content = doc.page_content.replace('\n</chunk>', '').split('Page_content:\n')[1]
 
-            max_overlap, overlap_str = self.find_max_overlap(prev_content, page_content)
-
-            if exp_content == '':
-                exp_content += prev_content
+            max_overlap, _ = self.find_max_overlap(prev_content, page_content)
             exp_content += page_content[max_overlap:]
 
         exp_content = self.convert_h4_to_h5(exp_content)

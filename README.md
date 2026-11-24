@@ -13,7 +13,7 @@ Repository: [SujaeJeong/ABPairDB](https://github.com/SujaeJeong/ABPairDB).
 - scripts/run_extraction.py: extraction from one prepared patent input.
 - scripts/evaluate_validation.py: offline scoring of normalized JSONL records.
 - docs/: prepared-input, output, and evaluation schemas.
-- environment.yml: inherited dependency specification.
+- environment.yml: dependency requirements with API compatibility ranges.
 - SOURCE_MANIFEST.json and SHA256SUMS: snapshot hashes and checksums.
 
 See [Companion data](docs/data_package.md) for the separately packaged results.
@@ -46,9 +46,15 @@ conda env create -f environment.yml
 conda activate abpairdb
 ~~~
 
-A fresh installation of these dependencies has not been validated during
-packaging. Hosted extraction requires an API key and incurs API usage.
-The reranker may download model weights.
+Most dependencies are unpinned. Compatibility ranges are retained for the
+API families used by this code; these are not a frozen environment for
+reproducing manuscript results.
+
+The pip dependency set was installed in a fresh Python 3.11 Linux environment
+with CPU PyTorch and passed dependency checks and offline smoke tests. The
+complete Conda command, hosted extraction, and pretrained reranker inference
+have not been validated. Hosted extraction requires an API key and incurs
+API usage. The reranker may download model weights.
 
 Obtain patent documents separately and prepare the HTML, patent-local chain
 classifications, and metadata described in [Prepared input](docs/prepared_input.md).
@@ -81,6 +87,38 @@ starting at zero. Invalid model indices are filtered and counted in
 The configuration records GPT-4.1 extraction, text-embedding-3-large embeddings,
 FAISS/BM25 retrieval, and BAAI/bge-reranker-base reranking. These are snapshot
 settings, not a guarantee of current hosted-model availability.
+
+## Release fixes and offline validation
+
+The release fixes are adapted from extraction source commit
+`de1c0388f9540e6c3b078db53f0924de4c04f568`, used for an internal 196-patent run.
+Experiment collection now preserves a single body chunk, and named-antibody
+measurement extraction searches each complete context rather than individual
+characters. Existing antigen-index, table-class, and empty-input safeguards
+are retained. Later antibody-identity and table-analysis experiments are not
+included.
+
+Run the offline regression suite from the repository root:
+
+~~~bash
+python -m unittest discover -s tests -p 'test_*.py'
+~~~
+
+On 2026-11-24, all 37 test methods passed in the previously prepared Python
+3.11 CPU environment. Both CLI help commands, 29 prompt templates, Python
+syntax, and consistency of 93 installed packages were checked. Tests use
+synthetic inputs and stubbed model responses; no hosted inference was run.
+Existing LangChain/LangGraph and pandas deprecation warnings remain.
+
+The internal run completed 196 patents using Qwen generation and retrieval
+models. After label exclusions, antigen and VH–VL sequence-group pairing
+were scored on 187 patents (micro F1: 87.91% and 95.41%); binding data were
+scored on 85 patents (F1: 55.18%), with 102 patents unjudged for binding.
+On the common 195 completed patents, binding F1 decreased from 60.65% in the
+previous open-weight run to 55.18%. These results do not establish an overall
+accuracy improvement, the effect of either fix in isolation, or accuracy of
+the public GPT-4.1 configuration and JSONL evaluator. Antibody-variant identity
+and selection of a valid but incorrect antigen index remain known limitations.
 
 ## Optional offline evaluation
 

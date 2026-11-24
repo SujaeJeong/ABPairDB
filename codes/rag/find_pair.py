@@ -305,13 +305,12 @@ class PairAbNameExpNode(PatentQANode):
 
         return contexts
 
-    def mining_names(self, docs, ab_names):
+    def mining_names(self, context: str, ab_names):
+        if not ab_names:
+            return []
 
         ab_name_p = r'(?:' + '|'.join(map(re.escape, ab_names)) + r')'
-        matched_names = []
-        for doc in docs:
-            matches = re.findall(ab_name_p, doc, re.IGNORECASE)
-            matched_names.extend(matches)
+        matched_names = re.findall(ab_name_p, context, re.IGNORECASE)
         matched_names = list(set(matched_names))
 
         return matched_names
@@ -344,7 +343,7 @@ class PairAbNameExpNode(PatentQANode):
         binding_exp_dict = doc_state['binding_exp_dict']
         contexts = self.construct_context(binding_exp_dict)
         if ab_names:
-            matched_abs = [ self.mining_names(docs, ab_names) for docs in contexts ]
+            matched_abs = [self.mining_names(context, ab_names) for context in contexts]
         else:
             matched_abs = []
         configs = [
